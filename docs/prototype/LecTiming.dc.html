@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lecture · Timing</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+h2{font-size:16px;font-weight:650;margin:0}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.stages{display:flex;flex-wrap:wrap;gap:6px;padding:10px 32px;background:#FFFFFF;border-bottom:1px solid #DDE1E7}
+.sg{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;background:#F4F5F7;color:#5A6170;text-decoration:none}
+.sg.done{background:#E6F3EC;color:#1A6A3D}.sg.cur{background:#2450C8;color:#FFFFFF}
+.scroller{overflow-x:auto;overflow-y:hidden;position:relative;cursor:ew-resize}
+.wd{position:absolute;top:0;height:26px;border-radius:4px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;line-height:26px;padding:0 4px;box-sizing:border-box;overflow:hidden;white-space:nowrap}
+.cue{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid #EDEFF3;font-size:13px}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><a href="Lectures.dc.html" style="color: #15181E">Lectures</a><span class="muted">/</span><span>Position, Velocity, and Speed · 15 min</span>
+    <span style="flex: 1"></span>
+    <button onClick="{{toggleChat}}" aria-label="Open chat" style="height: 32px; border: 0; border-radius: 6px; background: transparent; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; font: inherit; font-weight: 500; color: #15181E; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc"><button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button><button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button><button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button></div>
+  </header>
+  <nav class="stages" aria-label="Lecture stages">
+    <a class="sg done" href="LecPlan.dc.html">✓ 1 Plan</a><a class="sg done" href="LecScript.dc.html">✓ 2 Script · locked</a><a class="sg done" href="LecVoice.dc.html">✓ 3 Voice</a><a class="sg cur" href="LecTiming.dc.html" aria-current="page">4 Transcript</a><a class="sg" href="LectureStudio.dc.html">5 Beats</a><a class="sg" href="LecScene.dc.html">6 Scene</a><a class="sg" href="LecRender.dc.html">7 Render</a>
+  </nav>
+
+  <main style="flex: 1; width: 100%; max-width: 1360px; margin: 0 auto; box-sizing: border-box; padding: 20px 32px; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+      <div style="flex: 1 1 400px; display: flex; flex-direction: column"><h2 style="font-size: 20px">Transcript and word timings</h2><span class="muted" style="font-size: 13px">From ElevenLabs with the audio, or Whisper on this PC for your own recording. Scroll the timeline to scrub; the caption under it follows.</span></div>
+      <button class="btn" onClick="{{togglePlay}}">{{playText}}</button>
+    </div>
+
+    <section class="card" style="padding: 14px 0; display: flex; flex-direction: column; gap: 10px">
+      <div style="padding: 0 16px; display: flex; align-items: baseline; gap: 12px"><strong class="mono" style="font-size: 20px">{{clock}}</strong><span class="muted" style="font-size: 13px">of 15:02 · §1</span></div>
+      <div style="position: relative">
+        <div class="scroller" ref="{{boxRef}}" onScroll="{{onScroll}}" tabindex="0" aria-label="Word timing timeline. Scroll to scrub.">
+          <div style="position: relative; width: {{innerW}}px; height: 150px">
+            <sc-for list="{{ticks}}" as="k" hint-placeholder-count="20">
+              <span style="position: absolute; top: 0; left: {{k.left}}px; width: 1px; height: {{k.h}}px; background: #9AA3B2"></span>
+              <sc-if value="{{k.major}}" hint-placeholder-val="{{ false }}"><span class="mono muted" style="position: absolute; top: 12px; left: {{k.labelLeft}}px; font-size: 11px">{{k.label}}</span></sc-if>
+            </sc-for>
+            <div style="position: absolute; top: 34px; left: 0; right: 0; height: 60px">
+              <sc-for list="{{bars}}" as="w" hint-placeholder-count="60"><span style="position: absolute; bottom: {{w.bottom}}px; left: {{w.left}}px; width: 4px; height: {{w.h}}px; border-radius: 2px; background: {{w.color}}"></span></sc-for>
+            </div>
+            <div style="position: absolute; top: 104px; left: 0; right: 0; height: 26px">
+              <sc-for list="{{words}}" as="w" hint-placeholder-count="20"><span class="wd" style="left: {{w.left}}px; width: {{w.width}}px; background: {{w.bg}}; color: {{w.fg}}">{{w.text}}</span></sc-for>
+            </div>
+          </div>
+        </div>
+        <span aria-hidden="true" style="position: absolute; top: 0; bottom: 12px; left: 140px; width: 2px; background: #D12F2F; pointer-events: none"></span>
+      </div>
+      <div style="margin: 0 16px; padding: 12px 16px; border-radius: 8px; background: #1B2230; color: #F3F1E8; font-size: 17px; text-align: center; min-height: 26px">{{caption}}</div>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 16px">
+      <section class="card" style="flex: 1 1 420px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px">
+        <h2>Captions (WebVTT for Canvas)</h2>
+        <div class="cue mono"><span class="muted">0:00.4 → 0:02.6</span><span>Let’s start with where something is.</span></div>
+        <div class="cue mono"><span class="muted">0:02.9 → 0:07.4</span><span>We call that its position, and we write it as x of t.</span></div>
+        <div class="cue mono"><span class="muted">0:07.8 → 0:12.3</span><span>Picture a car on a straight road with a number line underneath it.</span></div>
+      </section>
+      <section class="card" style="flex: 1 1 320px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px">
+        <h2>Words to check · 2</h2>
+        <div style="padding: 8px 10px; border-radius: 8px; background: #FDF1E4; color: #6E3606; display: flex; flex-direction: column; gap: 2px"><strong class="mono">“x one” → heard “x won”</strong><span>Respelled from the locked script at 2:51.4. Listen to confirm.</span></div>
+        <div style="padding: 8px 10px; border-radius: 8px; background: #FDF1E4; color: #6E3606; display: flex; flex-direction: column; gap: 2px"><strong class="mono">“delta t” · 0.4 s gap</strong><span>A missing or repeated word? Play 3:01–3:03.</span></div>
+        <span class="muted" style="font-size: 12.5px">Drag a word’s edge to fix a timing; captions and beats follow. Two models agreeing is a clue, not proof. Your ears decide.</span>
+      </section>
+    </div>
+  </main>
+  <footer class="foot">
+    <a class="btn" href="LecVoice.dc.html">Back to voice</a>
+    <span style="flex: 1"></span>
+    <a class="btn btn-p" href="LectureStudio.dc.html">Timings look right · plan beats</a>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Lecture · Transcript" prompts="Fix the timing on delta t|Export the captions file" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+var PX = 110, LEAD = 140;
+var TEXT = "Let’s start with where something is. We call that its position, and we write it as x of t. Picture a car on a straight road with a number line underneath it. If the car moves from x one to x two, the change is delta x.";
+var WORDS = (function () { var out = [], t = 0.4; TEXT.split(' ').forEach(function (w) { var d = 0.26 + w.length * 0.02; out.push({ text: w, s: t, e: t + d }); t += d + 0.06; if (/[.,]$/.test(w)) t += /\.$/.test(w) ? 0.4 : 0.15; }); return out; })();
+var DUR = Math.ceil(WORDS[WORDS.length - 1].e + 1.5);
+function clock(s) { var m = Math.floor(s / 60), r = s - m * 60; return m + ':' + (r < 10 ? '0' : '') + r.toFixed(1); }
+class Component extends DCLogic {
+  constructor(p) {
+    super(p); var s = this;
+    this.state = { t: 0, playing: false };
+    this.boxRef = function (el) { s.box = el; };
+    this.onScroll = function (e) { if (!s.state.playing) s.setState({ t: Math.min(DUR, e.currentTarget.scrollLeft / PX) }); };
+    this.togglePlay = function () {
+      if (s.state.playing) { clearInterval(s._i); s.setState({ playing: false }); return; }
+      s.setState({ playing: true, t: s.state.t >= DUR - 0.2 ? 0 : s.state.t });
+      s._i = setInterval(function () { var t1 = s.state.t + 0.05; if (t1 >= DUR) { clearInterval(s._i); s.setState({ playing: false, t: DUR }); return; } if (s.box) s.box.scrollLeft = t1 * PX; s.setState({ t: t1 }); }, 50);
+    };
+  }
+  componentWillUnmount() { clearInterval(this._i); }
+  renderVals() {
+    var t = this.state.t, ticks = [], bars = [];
+    for (var q = 0; q <= DUR; q++) ticks.push({ left: LEAD + q * PX, h: q % 5 === 0 ? 12 : 6, major: true, label: clock(q).replace(/\.0$/, ''), labelLeft: LEAD + q * PX + 4 });
+    for (var i = 0; i < DUR * 10; i++) { var tt = i / 10, inW = WORDS.some(function (w) { return tt >= w.s && tt <= w.e; }); var h = inW ? 8 + Math.round(44 * Math.abs(Math.sin(i * 1.7) * Math.cos(i * 0.37))) : 2; bars.push({ left: LEAD + i * PX / 10, h: h, bottom: Math.round((60 - h) / 2), color: tt <= t ? '#2450C8' : '#B8C2D6' }); }
+    var wi = -1; WORDS.forEach(function (w, k) { if (t >= w.s - 0.05) wi = k; });
+    var cap = []; if (wi >= 0) for (var k = Math.max(0, wi - 5); k <= wi; k++) cap.push(WORDS[k].text);
+    var me = this;
+    return {
+      chatOpen: !!this.state.chatOpen, toggleChat: function () { me.setState({ chatOpen: !me.state.chatOpen }); },
+      boxRef: this.boxRef, onScroll: this.onScroll, togglePlay: this.togglePlay, playText: this.state.playing ? 'Pause' : 'Play',
+      clock: clock(t), innerW: LEAD + DUR * PX + 1100, ticks: ticks, bars: bars, caption: cap.join(' ') || '…',
+      words: WORDS.map(function (w) { var on = t >= w.s && t <= w.e; return { text: w.text, left: LEAD + w.s * PX, width: Math.max(14, (w.e - w.s) * PX - 2), bg: on ? '#2450C8' : t > w.e ? '#E8EEFC' : '#F4F5F7', fg: on ? '#FFFFFF' : '#15181E' }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

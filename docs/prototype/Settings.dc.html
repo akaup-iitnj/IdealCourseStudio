@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5A6170}
+h1{font-size:26px;font-weight:650;margin:0;letter-spacing:-.01em}
+h2{font-size:17px;font-weight:650;margin:0}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:600;font-size:13px}
+.row{display:flex;gap:8px}
+input{font:inherit;min-height:44px;box-sizing:border-box;padding:0 12px;border:1px solid #C9CFD8;border-radius:8px;background:#FFFFFF;color:#15181E;flex:1;min-width:0}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><span>Settings</span>
+    <span style="flex: 1"></span>
+    <button onClick="{{toggleChat}}" aria-label="Open chat" style="height: 32px; border: 0; border-radius: 6px; background: transparent; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; font: inherit; font-weight: 500; color: #15181E; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc">
+      <button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button>
+      <button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button>
+      <button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button>
+    </div>
+  </header>
+  <main style="flex: 1; width: 100%; max-width: 880px; margin: 0 auto; box-sizing: border-box; padding: 40px; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span class="eyebrow">One settings file for this install</span>
+      <h1>Keys and connections</h1>
+      <p class="muted" style="margin: 0">Stored in <span class="mono">%APPDATA%\Course Studio\settings.json</span>. Never copied into a project folder.</p>
+    </div>
+
+    <section class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 18px">
+      <h2>Canvas</h2>
+      <div class="field"><label for="cv-url">Canvas address</label><input id="cv-url" value="https://[YOUR SCHOOL].instructure.com"></div>
+      <div class="field"><label for="cv-tok">API token</label><div class="row"><input id="cv-tok" type="password" value="xxxxxxxxxxxxxxxxxxxx"><button class="btn">Test</button></div></div>
+      <div class="field"><label for="cv-id">Course ID</label><input id="cv-id" value="[COURSE ID]"><span class="muted" style="font-size: 13px">The app publishes into this existing course. It never creates a new Canvas course.</span></div>
+    </section>
+
+    <section class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 18px">
+      <h2>Services</h2>
+      <div class="field"><label for="k-model">Language model API key</label><div class="row"><input id="k-model" type="password" value="xxxxxxxxxxxxxxxx"><button class="btn">Test</button></div><span class="muted" style="font-size: 13px">Chapter boundaries, module split, lesson text, picture names, scripts. Offline model: later.</span></div>
+      <div class="field"><label for="k-napkin">Napkin API key</label><div class="row"><input id="k-napkin" type="password" value="xxxxxxxxxxxx"><button class="btn">Test</button></div><span class="muted" style="font-size: 13px">Diagrams inside readings.</span></div>
+      <div class="field"><label for="k-el">ElevenLabs API key</label><div class="row"><input id="k-el" placeholder="Not set. Only needed for lectures"><button class="btn">Test</button></div></div>
+    </section>
+
+    <div style="display: flex; justify-content: flex-end; gap: 12px">
+      <a class="btn" href="Main.dc.html">Cancel</a>
+      <a class="btn btn-p" href="Main.dc.html">Save</a>
+    </div>
+  </main>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Settings" prompts="Test my Canvas token|Where is the settings file kept?" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { var c = this, st = this.state || {}; return { chatOpen: !!st.chatOpen, toggleChat: function () { c.setState({ chatOpen: !((c.state || {}).chatOpen) }); } }; }
+}
+</script>
+</body>
+</html>

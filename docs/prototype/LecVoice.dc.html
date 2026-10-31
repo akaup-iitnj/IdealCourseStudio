@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lecture · Voice</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.ib{min-width:36px;height:36px;border:1px solid #C9CFD8;border-radius:8px;background:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;color:#15181E}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+h2{font-size:16px;font-weight:650;margin:0}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.stages{display:flex;flex-wrap:wrap;gap:6px;padding:10px 32px;background:#FFFFFF;border-bottom:1px solid #DDE1E7}
+.sg{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;background:#F4F5F7;color:#5A6170;text-decoration:none}
+.sg.done{background:#E6F3EC;color:#1A6A3D}.sg.cur{background:#2450C8;color:#FFFFFF}
+.opt{flex:1 1 260px;display:flex;gap:12px;padding:16px;border:1px solid #C9CFD8;border-radius:12px;background:#FFFFFF}
+.clip{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid #EDEFF3}
+.st{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><a href="Lectures.dc.html" style="color: #15181E">Lectures</a><span class="muted">/</span><span>Position, Velocity, and Speed · 15 min</span>
+    <span style="flex: 1"></span>
+    <button onClick="{{toggleChat}}" aria-label="Open chat" style="height: 32px; border: 0; border-radius: 6px; background: transparent; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; font: inherit; font-weight: 500; color: #15181E; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc"><button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button><button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button><button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button></div>
+  </header>
+  <nav class="stages" aria-label="Lecture stages">
+    <a class="sg done" href="LecPlan.dc.html">✓ 1 Plan</a><a class="sg done" href="LecScript.dc.html">✓ 2 Script · locked</a><a class="sg cur" href="LecVoice.dc.html" aria-current="page">3 Voice</a><a class="sg" href="LecTiming.dc.html">4 Transcript</a><a class="sg" href="LectureStudio.dc.html">5 Beats</a><a class="sg" href="LecScene.dc.html">6 Scene</a><a class="sg" href="LecRender.dc.html">7 Render</a>
+  </nav>
+
+  <main style="flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; box-sizing: border-box; padding: 24px 32px; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-wrap: wrap; gap: 12px">
+      <label class="opt" style="border: 2px solid #2450C8; background: #F5F8FF"><input type="radio" name="src" checked> <span style="display: flex; flex-direction: column; gap: 4px"><strong>ElevenLabs voice</strong><span class="muted" style="font-size: 13px">Voice: [YOUR VOICE] · word timings come back with the audio</span></span></label>
+      <label class="opt"><input type="radio" name="src"> <span style="display: flex; flex-direction: column; gap: 4px"><strong>Drop in your own recording</strong><span class="muted" style="font-size: 13px">Read the locked script aloud. Whisper on this PC finds the word timings.</span></span></label>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+      <section class="card" style="flex: 2 1 560px; min-width: 0">
+        <div style="padding: 14px 16px; display: flex; align-items: center; gap: 10px"><h2 style="flex: 1">Takes · one per paragraph</h2><span class="muted" style="font-size: 13px">14:52 total</span></div>
+        <div class="clip"><button class="ib" aria-label="Play section 1"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="#15181E"></path></svg></button><strong style="flex: 1 1 200px">§1 Position as x(t)</strong><span class="mono muted">2:04</span><span class="st" style="background: #E6F3EC; color: #1A6A3D">Generated</span></div>
+        <div class="clip"><button class="ib" aria-label="Play section 2"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="#15181E"></path></svg></button><strong style="flex: 1 1 200px">§2 Displacement vs distance</strong><span class="mono muted">3:12</span><span class="st" style="background: #E6F3EC; color: #1A6A3D">Generated</span></div>
+        <div class="clip" style="background: #F5F8FF"><button class="ib" aria-label="Pause section 3"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="#15181E"></path></svg></button><strong style="flex: 1 1 200px">§3 Average velocity</strong>
+          <svg width="220" height="28" viewBox="0 0 220 28" aria-hidden="true"><path d="M0 14 L10 6 L20 22 L30 4 L40 24 L50 9 L60 19 L70 5 L80 23 L90 11 L100 17 L110 6 L120 22 L130 10 L140 18 L150 7 L160 21 L170 12 L180 16 L190 8 L200 20 L210 13 L220 14" fill="none" stroke="#2450C8" stroke-width="1.6"></path></svg>
+          <span class="mono muted">1:02 / 3:28</span><button class="btn" style="min-height: 34px; font-size: 13px">Regenerate</button></div>
+        <div class="clip"><span style="width: 36px"></span><strong style="flex: 1 1 200px">§4 Position–time graphs</strong><span class="mono muted">3:24</span><span class="st" style="background: #E6F3EC; color: #1A6A3D">Generated</span></div>
+        <div class="clip"><span style="width: 36px"></span><strong style="flex: 1 1 200px">§5 Average speed</strong><span class="mono muted">2:46</span><span class="st" style="background: #E6F3EC; color: #1A6A3D">Generated</span></div>
+      </section>
+
+      <section class="card" style="flex: 1 1 300px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+        <h2>How to say it</h2>
+        <span class="muted" style="font-size: 13px">Used for every lecture in this course</span>
+        <div class="mono" style="display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 13px">
+          <span>Δx</span><span>delta x</span><span>v̄</span><span>v bar</span><span>x(t)</span><span>x of t</span><span>m/s</span><span>meters per second</span><span>SI</span><span>S I</span>
+        </div>
+        <button class="btn" style="align-self: flex-start">+ Add</button>
+      </section>
+
+      <section class="card" style="flex: 1 1 300px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px">
+        <h2>Listen to the whole take</h2>
+        <label style="display: flex; gap: 8px"><input type="checkbox" checked> Meaning: every fact matches the book</label>
+        <label style="display: flex; gap: 8px"><input type="checkbox" checked> Pronunciation: symbols and names</label>
+        <label style="display: flex; gap: 8px"><input type="checkbox"> Pace: about 150–170 words a minute</label>
+        <span class="muted" style="font-size: 12.5px">A file existing is not approval. Your sign-off goes in the lecture’s review log.</span>
+      </section>
+    </div>
+  </main>
+  <footer class="foot">
+    <a class="btn" href="LecScript.dc.html">Back to script</a>
+    <span style="flex: 1"></span>
+    <a class="btn btn-p" href="LecTiming.dc.html">Accept voice · check timing</a>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Lecture · Voice" prompts="Regenerate paragraph 3 a little slower|Add Δv to the pronunciation list" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { var c = this, st = this.state || {}; return { chatOpen: !!st.chatOpen, toggleChat: function () { c.setState({ chatOpen: !((c.state || {}).chatOpen) }); } }; }
+}
+</script>
+</body>
+</html>

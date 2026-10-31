@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chat drawer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<aside aria-label="Chat" style="font-family: 'Instrument Sans', system-ui, sans-serif; color: #15181E; width: 100%; height: 100%; min-height: 600px; background: #FFFFFF; border-left: 1px solid #DDE1E7; display: flex; flex-direction: column; box-sizing: border-box; font-size: 14px; line-height: 1.45">
+  <div style="padding: 12px 16px; border-bottom: 1px solid #DDE1E7; display: flex; flex-direction: column; gap: 6px">
+    <div style="display: flex; align-items: center; gap: 8px">
+      <strong style="flex: 1">Chat</strong>
+      <button onClick="{{close}}" aria-label="Close chat" style="width: 36px; height: 36px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-size: 20px; color: #15181E; cursor: pointer">×</button>
+    </div>
+    <span style="font-size: 12.5px; color: #5A6170">Looking at: <strong style="color: #15181E">{{where}}</strong></span>
+    <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px">
+      <span style="padding: 3px 8px; border-radius: 999px; background: #E6F3EC; color: #1A6A3D; font-weight: 600">Can edit project files</span>
+      <label title="Chat can always edit files on this PC. Tick this to also let your next message change the live Canvas course. It switches off again after that message." style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 999px; background: #F4F5F7; font-weight: 600"><input type="checkbox" style="margin: 0"> Let my next message publish to Canvas</label>
+    </div>
+    <span style="font-size: 11.5px; color: #5A6170">Without that tick, chat only changes files on this PC. You publish to Canvas yourself.</span>
+  </div>
+  <div style="flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow: auto">
+    <div style="max-width: 90%; padding: 10px 12px; border-radius: 12px; background: #F4F5F7; font-size: 13.5px">I can see this screen. Ask me to change anything here, or paste a screenshot with Ctrl+V. Every change I make is saved as a step you can undo.</div>
+    <sc-for list="{{msgs}}" as="m" hint-placeholder-count="0">
+      <div style="align-self: {{m.align}}; max-width: 90%; padding: 10px 12px; border-radius: 12px; background: {{m.bg}}; font-size: 13.5px">{{m.text}}</div>
+    </sc-for>
+    <sc-if value="{{showTry}}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px">
+        <span style="font-size: 12px; font-weight: 600; color: #5A6170">TRY</span>
+        <sc-for list="{{suggestions}}" as="s" hint-placeholder-count="2">
+          <button onClick="{{s.ask}}" style="text-align: left; font: inherit; font-size: 13px; padding: 8px 10px; border: 1px solid #C7D4F5; border-radius: 8px; background: #F5F8FF; color: #1A3C9A; cursor: pointer">{{s.text}}</button>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+  <div style="padding: 12px 16px; border-top: 1px solid #DDE1E7; display: flex; flex-direction: column; gap: 8px">
+    <label for="chatmsg" style="position: absolute; left: -9999px">Message</label>
+    <textarea id="chatmsg" rows="3" value="{{draft}}" onChange="{{type}}" placeholder="Ask, or paste a screenshot (Ctrl+V)" style="font: inherit; resize: none; border: 1px solid #C9CFD8; border-radius: 10px; padding: 10px 12px; color: #15181E"></textarea>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <span style="flex: 1; font-size: 12px; color: #5A6170">Prototype: replies are canned</span>
+      <button onClick="{{send}}" style="font: inherit; font-weight: 600; min-height: 36px; padding: 0 16px; border-radius: 8px; border: 1px solid #2450C8; background: #2450C8; color: #FFFFFF; cursor: pointer">Send</button>
+    </div>
+  </div>
+</aside>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"where":{"editor":"text","default":"This screen"},"prompts":{"editor":"text","default":"Change something here|Explain this screen"},"onClose":{"editor":null},"$preview":{"width":380,"height":860}}'>
+var REPLY = 'In the real app I would make that change now, save it as a step you can undo, and reload this screen. The prototype does not change anything.';
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { msgs: [], draft: '' }; }
+  ask(text) { if (!text) return; var m = this.state.msgs.concat([{ text: text, align: 'flex-end', bg: '#E8EEFC' }, { text: REPLY, align: 'flex-start', bg: '#F4F5F7' }]); this.setState({ msgs: m, draft: '' }); }
+  renderVals() {
+    var s = this, p = this.props;
+    var list = String(p.prompts || 'Change something here|Explain this screen').split('|');
+    return {
+      where: p.where || 'This screen', msgs: this.state.msgs, draft: this.state.draft, showTry: this.state.msgs.length === 0,
+      suggestions: list.map(function (t) { return { text: t, ask: function () { s.ask(t); } }; }),
+      type: function (e) { s.setState({ draft: e.target.value }); },
+      send: function () { s.ask(s.state.draft.trim()); },
+      close: function () { if (typeof p.onClose === 'function') p.onClose(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

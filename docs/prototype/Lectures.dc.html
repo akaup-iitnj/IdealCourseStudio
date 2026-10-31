@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Course and lectures</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.ib{min-width:36px;height:32px;border:0;border-radius:6px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#15181E;font:inherit;font-weight:500;padding:0 10px;text-decoration:none}
+.rail{background:#FFFFFF;border-bottom:1px solid #DDE1E7;padding:0 32px}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+.rail li{display:flex;align-items:center;gap:8px;padding:12px 12px 10px;font-size:13px;color:#5A6170;border-bottom:2px solid transparent}
+.rail .n{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:600;border:1px solid #C9CFD8;box-sizing:border-box}
+.rail li.done .n{background:#E8EEFC;border-color:#E8EEFC;color:#2450C8}
+.rail li.cur{color:#15181E;font-weight:600;border-bottom-color:#2450C8}
+.rail li.cur .n{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.rail a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}.rail a:hover{color:#2450C8}
+.muted{color:#5A6170}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5A6170}
+h1{font-size:24px;font-weight:650;margin:0}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.seg{display:inline-flex;border:1px solid #C9CFD8;border-radius:10px;overflow:hidden;background:#FFFFFF}
+.seg button{font:inherit;font-weight:600;min-height:40px;padding:0 18px;border:0;background:#FFFFFF;color:#15181E;border-right:1px solid #C9CFD8;cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:#2450C8;color:#FFFFFF}
+.mod{border:1px solid #C9CFD8;border-radius:6px;background:#FFFFFF;overflow:hidden}
+.mhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 12px;background:#EEF0F4;border-bottom:1px solid #C9CFD8}
+.mhead button{border:0;background:transparent;font:inherit;font-weight:700;font-size:15px;color:#15181E;display:inline-flex;align-items:center;gap:8px;padding:4px 2px;cursor:pointer}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:9px 12px;border-bottom:1px solid #EDEFF3;color:#15181E;text-decoration:none}
+.row:last-child{border-bottom:0}
+a.row:hover{background:#F5F8FF}
+.ico{width:26px;height:26px;border-radius:5px;display:inline-grid;place-items:center;color:#FFFFFF;font-size:12px;font-weight:700;flex:0 0 auto}
+.st{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pips{display:flex;gap:3px}.pips span{width:20px;height:6px;border-radius:3px}
+.vcard{display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid #DDE1E7;border-radius:10px;background:#FFFFFF;color:#15181E;text-decoration:none}
+.vcard:hover{border-color:#2450C8}
+@keyframes stripes{to{background-position:28px 0}}
+.bar{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.22) 0 7px,transparent 7px 14px);background-size:28px 100%;animation:stripes 1s linear infinite}
+@media (prefers-reduced-motion: reduce){.bar{animation:none}}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><span>Physics for Scientists &amp; Engineers</span>
+    <span style="flex: 1"></span>
+    <button class="ib" aria-label="Open chat" onClick="{{toggleChat}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc">
+      <button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button>
+      <button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button>
+      <button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button>
+    </div>
+  </header>
+  <nav class="rail" aria-label="Steps"><ol>
+    <li class="done"><a href="Upload.dc.html"><span class="n">✓</span>Textbook</a></li><li class="done"><a href="Chapters.dc.html"><span class="n">✓</span>Chapters</a></li><li class="done"><a href="ModuleSetup.dc.html"><span class="n">✓</span>Schedule</a></li><li class="done"><a href="ModuleSplit.dc.html"><span class="n">✓</span>Modules</a></li><li class="done"><a href="Folders.dc.html"><span class="n">✓</span>Files &amp; pictures</a></li><li class="done"><a href="Lessons.dc.html"><span class="n">✓</span>Lessons</a></li><li class="done"><a href="Preview.dc.html"><span class="n">✓</span>Text</a></li><li class="done"><a href="Canvas.dc.html"><span class="n">✓</span>Canvas</a></li><li class="cur"><a href="Lectures.dc.html"><span class="n">9</span>Lectures</a></li>
+  </ol></nav>
+
+  <main style="flex: 1; width: 100%; max-width: 1240px; margin: 0 auto; box-sizing: border-box; padding: 24px 32px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px">
+      <div style="flex: 1 1 400px; display: flex; flex-direction: column; gap: 4px">
+        <span class="eyebrow">Text course is in Canvas · marked done Oct 31</span>
+        <h1>Physics for Scientists &amp; Engineers · 10 weeks</h1>
+      </div>
+      <div class="seg" role="group" aria-label="View">
+        <button aria-pressed="{{overallP}}" onClick="{{showOverall}}">Overall view</button>
+        <button aria-pressed="{{lecturesP}}" onClick="{{showLectures}}">Lecture view</button>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px; padding: 10px 14px; background: #FFFFFF; border: 1px solid #DDE1E7; border-radius: 10px">
+      <span><strong>2</strong> <span class="muted">in Canvas</span></span>
+      <span><strong>1</strong> <span class="muted">rendering</span></span>
+      <span><strong>1</strong> <span class="muted">open for editing</span></span>
+      <span><strong>1</strong> <span class="muted">started</span></span>
+      <span><strong>{{waiting}}</strong> <span class="muted">not started</span></span>
+      <span style="flex: 1"></span>
+      <span class="muted">Renders run in the background, so you can start the next lecture while one renders.</span>
+    </div>
+
+    <sc-for list="{{weeks}}" as="w" hint-placeholder-count="10">
+      <section class="mod">
+        <div class="mhead">
+          <button onClick="{{w.toggle}}" aria-expanded="{{w.openStr}}"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" style="transform: rotate({{w.rot}})"><path d="M8 4l10 8-10 8z" fill="#15181E"></path></svg>Week {{w.n}} · {{w.title}}</button>
+          <span class="muted" style="font-size: 12.5px">{{w.chapters}} · Sessions {{w.sFrom}}–{{w.sTo}}</span>
+          <span style="flex: 1"></span>
+          <span class="muted" style="font-size: 12.5px">{{w.summary}}</span>
+        </div>
+        <sc-if value="{{w.showOverall}}" hint-placeholder-val="{{ true }}">
+          <div>
+            <sc-for list="{{w.items}}" as="it" hint-placeholder-count="6">
+              <a class="row" href="{{it.href}}" style="padding-left: {{it.indent}}">
+                <span class="ico" style="background: {{it.color}}" aria-hidden="true">{{it.icon}}</span>
+                <span style="flex: 1 1 260px; display: flex; flex-direction: column; min-width: 0"><span style="font-weight: 600">{{it.title}}</span><span class="muted" style="font-size: 12px">{{it.meta}}</span></span>
+                <sc-if value="{{it.isVideo}}" hint-placeholder-val="{{ false }}">
+                  <span class="pips" aria-hidden="true"><sc-for list="{{it.pips}}" as="p" hint-placeholder-count="7"><span style="background: {{p}}"></span></sc-for></span>
+                </sc-if>
+                <span class="st" style="background: {{it.stBg}}; color: {{it.stFg}}">{{it.status}}</span>
+              </a>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{w.showLectures}}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px">
+            <sc-for list="{{w.videos}}" as="v" hint-placeholder-count="4">
+              <a class="vcard" href="{{v.href}}">
+                <div style="display: flex; align-items: flex-start; gap: 10px">
+                  <span class="ico" style="background: #6B3FA0" aria-hidden="true">V</span>
+                  <span style="flex: 1; display: flex; flex-direction: column"><strong style="font-size: 13.5px; line-height: 1.3">{{v.title}}</strong><span class="muted" style="font-size: 12px">{{v.len}} min · {{v.stage}}</span></span>
+                </div>
+                <div style="height: 8px; border-radius: 4px; background: #EDEFF3; overflow: hidden"><div class="{{v.barCls}}" style="height: 8px; border-radius: 4px; width: {{v.pct}}; background-color: {{v.barColor}}"></div></div>
+                <div style="display: flex; justify-content: space-between; font-size: 12px"><span class="st" style="background: {{v.stBg}}; color: {{v.stFg}}">{{v.status}}</span><span class="muted">{{v.action}}</span></div>
+              </a>
+            </sc-for>
+          </div>
+        </sc-if>
+      </section>
+    </sc-for>
+  </main>
+  <footer class="foot">
+    <a class="btn" href="Canvas.dc.html">Back to Canvas</a>
+    <span style="flex: 1"></span>
+    <a class="btn btn-p" href="LectureStudio.dc.html">Continue open lecture</a>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Course and lectures" prompts="Which lectures are holding up Week 2?|Start the next lecture that has no video" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+var WEEKS = [
+  ['Measurement & 1D Motion', 'Ch 1–2', ['Units, standards and the SI system', 'Dimensional analysis and significant figures', 'Position, velocity and speed', 'Acceleration and free fall']],
+  ['Vectors', 'Ch 3', ['Vectors and scalars', 'Adding vectors', 'Components and unit vectors']],
+  ['Motion in Two Dimensions', 'Ch 4', ['Position, velocity and acceleration in 2D', 'Projectile motion', 'Relative velocity']],
+  ['The Laws of Motion', 'Ch 5', ['Newton’s first law and inertia', 'Force, mass and the second law', 'The third law', 'Friction']],
+  ['Circular Motion', 'Ch 6', ['Forces in uniform circular motion', 'Nonuniform circular motion', 'Motion with resistive forces']],
+  ['Energy', 'Ch 7–8', ['Work and kinetic energy', 'Potential energy', 'Conservation of mechanical energy', 'Power']],
+  ['Momentum and Collisions', 'Ch 9', ['Linear momentum and impulse', 'Collisions in one dimension', 'Collisions in two dimensions', 'Center of mass']],
+  ['Rotation', 'Ch 10', ['Angular position, velocity and acceleration', 'Torque', 'Moment of inertia']],
+  ['Angular Momentum', 'Ch 11', ['Angular momentum', 'Conservation of angular momentum']],
+  ['Equilibrium and Elasticity', 'Ch 12', ['Conditions for equilibrium', 'Center of gravity', 'Elastic properties of solids']]
+];
+var STAGES = ['Plan', 'Script', 'Voice', 'Transcript', 'Beats', 'Scene', 'Render'];
+var LENS = [10, 10, 15, 20];
+// state per lecture: done = stages finished (0-7), mode
+var LEC = { '0-0': { done: 7, mode: 'canvas' }, '0-1': { done: 7, mode: 'canvas' }, '0-2': { done: 6, mode: 'render', pct: 68 }, '0-3': { done: 4, mode: 'open' }, '1-0': { done: 1, mode: 'started' } };
+function lec(wi, ti) { return LEC[wi + '-' + ti] || { done: 0, mode: 'none' }; }
+function info(L) {
+  if (L.mode === 'canvas') return { status: 'In Canvas', stBg: '#E6F3EC', stFg: '#1A6A3D', stage: 'rendered', pct: '100%', barColor: '#1E7A46', barCls: '', action: 'Open to edit' };
+  if (L.mode === 'render') return { status: 'Rendering ' + L.pct + '%', stBg: '#E8EEFC', stFg: '#1A3C9A', stage: 'about 6 min left', pct: L.pct + '%', barColor: '#2450C8', barCls: 'bar', action: 'Open render' };
+  if (L.mode === 'open') return { status: 'Open · ' + STAGES[L.done], stBg: '#2450C8', stFg: '#FFFFFF', stage: 'stage ' + (L.done + 1) + ' of 7', pct: Math.round(L.done / 7 * 100) + '%', barColor: '#2450C8', barCls: '', action: 'Continue' };
+  if (L.mode === 'started') return { status: 'Next: ' + STAGES[L.done], stBg: '#FDF1E4', stFg: '#8A4308', stage: 'stage ' + (L.done + 1) + ' of 7', pct: Math.round(L.done / 7 * 100) + '%', barColor: '#B4570B', barCls: '', action: 'Pick up' };
+  return { status: 'Blank placeholder', stBg: '#EDEFF3', stFg: '#4A5160', stage: 'not started', pct: '0%', barColor: '#C9CFD8', barCls: '', action: 'Start' };
+}
+function hrefFor(L) { return L.mode === 'render' ? 'LecRender.dc.html' : L.mode === 'open' ? 'LectureStudio.dc.html' : 'LecPlan.dc.html'; }
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { view: 'overall', open: { 0: true, 1: true } }; }
+  renderVals() {
+    var s = this, st = this.state, lecturesView = st.view === 'lectures', waiting = 0;
+    var weeks = WEEKS.map(function (w, wi) {
+      var items = [], videos = [], inCanvas = 0;
+      w[2].forEach(function (tp, ti) {
+        var L = lec(wi, ti), I = info(L); if (L.mode === 'none') waiting++; if (L.mode === 'canvas') inCanvas++;
+        var pips = STAGES.map(function (_, k) { return k < L.done ? (L.mode === 'canvas' ? '#1E7A46' : '#2450C8') : (L.mode === 'render' && k === 6 ? '#9DB3EB' : '#E3E6EB'); });
+        items.push({ title: tp, meta: 'Reading · published', icon: 'R', color: '#2450C8', indent: '12px', isVideo: false, status: 'Published', stBg: '#E6F3EC', stFg: '#1A6A3D', href: 'Preview.dc.html', pips: [] });
+        items.push({ title: tp + ' (lecture)', meta: 'Video · ' + LENS[ti % 4] + ' min · ' + I.stage, icon: 'V', color: '#6B3FA0', indent: '40px', isVideo: true, pips: pips, status: I.status, stBg: I.stBg, stFg: I.stFg, href: hrefFor(L) });
+        videos.push({ title: tp, len: LENS[ti % 4], stage: I.stage, pct: I.pct, barColor: I.barColor, barCls: I.barCls, status: I.status, stBg: I.stBg, stFg: I.stFg, action: I.action, href: hrefFor(L) });
+      });
+      items.push({ title: 'Week ' + (wi + 1) + ' recap', meta: 'Slideshow', icon: 'S', color: '#0E7490', indent: '12px', isVideo: false, status: 'Published', stBg: '#E6F3EC', stFg: '#1A6A3D', href: 'Preview.dc.html', pips: [] });
+      items.push({ title: 'Week ' + (wi + 1) + ' problem set', meta: 'Assignment · 20 pts', icon: 'A', color: '#B4570B', indent: '12px', isVideo: false, status: 'Published', stBg: '#E6F3EC', stFg: '#1A6A3D', href: 'Preview.dc.html', pips: [] });
+      var open = lecturesView ? true : !!st.open[wi];
+      return {
+        n: wi + 1, title: w[0], chapters: w[1], sFrom: wi * 8 + 1, sTo: wi * 8 + 8,
+        summary: w[2].length + ' readings · ' + inCanvas + ' of ' + w[2].length + ' videos in Canvas',
+        items: items, videos: videos,
+        showOverall: !lecturesView && open, showLectures: lecturesView,
+        openStr: String(open), rot: open ? '90deg' : '0deg',
+        toggle: function () { var o = Object.assign({}, s.state.open); o[wi] = !o[wi]; s.setState({ open: o }); }
+      };
+    });
+    return {
+      chatOpen: !!st.chatOpen, toggleChat: function () { s.setState({ chatOpen: !s.state.chatOpen }); },
+      weeks: weeks, waiting: waiting,
+      overallP: String(!lecturesView), lecturesP: String(lecturesView),
+      showOverall: function () { s.setState({ view: 'overall' }); },
+      showLectures: function () { s.setState({ view: 'lectures' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

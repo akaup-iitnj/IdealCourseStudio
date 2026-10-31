@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Upload to Canvas</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.ib{min-width:36px;height:32px;border:0;border-radius:6px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#15181E;font:inherit;font-weight:500;padding:0 10px;text-decoration:none}
+.rail{background:#FFFFFF;border-bottom:1px solid #DDE1E7;padding:0 32px}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+.rail li{display:flex;align-items:center;gap:8px;padding:12px 12px 10px;font-size:13px;color:#5A6170;border-bottom:2px solid transparent}
+.rail .n{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:600;border:1px solid #C9CFD8;box-sizing:border-box}
+.rail li.done .n{background:#E8EEFC;border-color:#E8EEFC;color:#2450C8}
+.rail li.cur{color:#15181E;font-weight:600;border-bottom-color:#2450C8}
+.rail li.cur .n{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.rail a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}.rail a:hover{color:#2450C8}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5A6170}
+h1{font-size:26px;font-weight:650;margin:0;letter-spacing:-.01em}
+h2{font-size:16px;font-weight:650;margin:0}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.lms-row{display:flex;align-items:center;gap:12px;padding:11px 16px;border-top:1px solid #EDEFF3}
+.st{font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.st-pub{background:#E6F3EC;color:#1A6A3D}.st-blank{background:#EDEFF3;color:#4A5160}.st-chg{background:#FDF1E4;color:#8A4308}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><span>Physics for Scientists &amp; Engineers</span>
+    <span style="flex: 1"></span>
+    <button class="ib" aria-label="Open chat" onClick="{{toggleChat}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc">
+      <button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button>
+      <button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button>
+      <button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button>
+    </div>
+  </header>
+  <nav class="rail" aria-label="Steps"><ol>
+    <li class="done"><a href="Upload.dc.html"><span class="n">✓</span>Textbook</a></li><li class="done"><a href="Chapters.dc.html"><span class="n">✓</span>Chapters</a></li><li class="done"><a href="ModuleSetup.dc.html"><span class="n">✓</span>Schedule</a></li><li class="done"><a href="ModuleSplit.dc.html"><span class="n">✓</span>Modules</a></li><li class="done"><a href="Folders.dc.html"><span class="n">✓</span>Files &amp; pictures</a></li><li class="done"><a href="Lessons.dc.html"><span class="n">✓</span>Lessons</a></li><li class="done"><a href="Preview.dc.html"><span class="n">✓</span>Text</a></li><li class="cur"><a href="Canvas.dc.html"><span class="n">8</span>Canvas</a></li><li><a href="Lectures.dc.html"><span class="n">9</span>Lectures</a></li>
+  </ol></nav>
+
+  <main style="flex: 1; width: 100%; max-width: 1380px; margin: 0 auto; box-sizing: border-box; padding: 28px 32px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px">
+      <div style="flex: 1 1 400px; display: flex; flex-direction: column; gap: 6px">
+        <span class="eyebrow">Text course · videos come later</span>
+        <h1>What your Canvas course will look like</h1>
+      </div>
+      <a class="btn btn-p" href="https://canvas.instructure.com/" target="_blank" rel="noopener" title="Opens [YOUR SCHOOL].instructure.com/courses/[COURSE ID] in your default browser">
+        Open course in Canvas
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start">
+      <section class="card" style="flex: 1.5 1 560px; overflow: hidden">
+        <div style="padding: 12px 16px; background: #F4F5F7; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #DDE1E7"><strong style="flex: 1">Canvas · Modules</strong><span class="muted mono">[COURSE ID]</span><a href="https://canvas.instructure.com/" target="_blank" rel="noopener" style="font-size: 13px; font-weight: 600">View modules in Canvas ↗</a></div>
+        <div style="padding: 12px 16px; display: flex; align-items: center; gap: 10px; background: #FAFBFC"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg><strong>Module 1 · Measurement &amp; Vectors</strong></div>
+        <div class="lms-row"><span class="mono muted" style="width: 72px">Reading</span><span style="flex: 1">Units, Standards, and the SI System</span><span class="st st-chg">Changed · republish</span></div>
+        <div class="lms-row"><span class="mono muted" style="width: 72px">Video</span><span style="flex: 1">Units, Standards, and the SI System (10 min)</span><span class="st st-blank">Blank placeholder</span></div>
+        <div class="lms-row"><span class="mono muted" style="width: 72px">Reading</span><span style="flex: 1">Dimensional Analysis and Significant Figures</span><span class="st st-pub">Published</span></div>
+        <div class="lms-row"><span class="mono muted" style="width: 72px">Video</span><span style="flex: 1">Dimensional Analysis (10 min)</span><span class="st st-blank">Blank placeholder</span></div>
+        <div class="lms-row"><span class="mono muted" style="width: 72px">Reading</span><span style="flex: 1">Position, Velocity, and Speed</span><span class="st st-pub">Published</span></div>
+        <div class="lms-row"><span class="mono muted" style="width: 72px">…</span><span class="muted" style="flex: 1">3 more topics</span></div>
+        <div class="lms-row"><span class="mono muted" style="width: 72px">Slides</span><span style="flex: 1">Module 1 Recap</span><span class="st st-pub">Published</span></div>
+        <div class="lms-row"><span class="mono muted" style="width: 72px">Assign.</span><span style="flex: 1">Module 1 Problem Set</span><span class="st st-pub">Published</span></div>
+        <div style="padding: 12px 16px; display: flex; align-items: center; gap: 10px; background: #FAFBFC; border-top: 1px solid #DDE1E7"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg><strong>Module 2 · Motion &amp; Newton’s Laws</strong><span style="flex: 1"></span><span class="st st-blank">Not uploaded</span></div>
+      </section>
+
+      <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 18px">
+        <section class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 12px">
+          <h2>Changes since last publish</h2>
+          <div style="display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; background: #FDF1E4">
+            <div style="flex: 1; display: flex; flex-direction: column"><strong style="font-size: 13.5px">Reading: Units, Standards, and the SI System</strong><span style="font-size: 12.5px; color: #6E3606">Chat turn · recropped si-base-units-table.png</span></div>
+          </div>
+          <button class="btn btn-p">Republish 1 item</button>
+          <span class="muted" style="font-size: 12.5px">Only the changed item is sent. Everything else stays as it is in Canvas.</span>
+          <a href="https://canvas.instructure.com/" target="_blank" rel="noopener" style="font-size: 13px; font-weight: 600">See this reading live in Canvas ↗</a>
+        </section>
+
+        <section class="card" style="padding: 18px; display: flex; flex-direction: column; gap: 10px">
+          <h2>History</h2>
+          <div style="display: flex; flex-direction: column; font-size: 13px">
+            <div style="display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid #EDEFF3"><span class="muted mono" style="width: 44px">4m</span><span style="flex: 1">Chat: recropped table picture</span><button class="ib" style="height: 28px; font-size: 12.5px; color: #2450C8">Undo</button></div>
+            <div style="display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid #EDEFF3"><span class="muted mono" style="width: 44px">22m</span><span style="flex: 1">Published Module 1 (9 items)</span></div>
+            <div style="display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid #EDEFF3"><span class="muted mono" style="width: 44px">31m</span><span style="flex: 1">Accepted Module 1 text</span><button class="ib" style="height: 28px; font-size: 12.5px; color: #2450C8">Undo</button></div>
+            <div style="display: flex; gap: 10px; padding: 8px 0"><span class="muted mono" style="width: 44px">1h</span><span style="flex: 1">Accepted lesson plan</span><button class="ib" style="height: 28px; font-size: 12.5px; color: #2450C8">Undo</button></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="foot">
+    <a class="btn" href="Preview.dc.html">Back</a>
+    <span style="flex: 1"></span>
+    <a class="btn" href="Lectures.dc.html">Mark text course done</a>
+    <button class="btn btn-p">Upload Module 2</button>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Upload to Canvas" prompts="Republish only the Week 1 readings|What changed since the last upload?" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { var c = this, st = this.state || {}; return { chatOpen: !!st.chatOpen, toggleChat: function () { c.setState({ chatOpen: !((c.state || {}).chatOpen) }); } }; }
+}
+</script>
+</body>
+</html>

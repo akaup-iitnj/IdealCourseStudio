@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Course plan by week</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.ib{min-width:32px;height:32px;border:0;border-radius:6px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#15181E;font:inherit;font-weight:500;padding:0 8px;text-decoration:none;cursor:pointer}
+.ib:hover{background:#EDEFF3}
+.rail{background:#FFFFFF;border-bottom:1px solid #DDE1E7;padding:0 32px}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+.rail li{display:flex;align-items:center;gap:8px;padding:12px 12px 10px;font-size:13px;color:#5A6170;border-bottom:2px solid transparent}
+.rail .n{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:600;border:1px solid #C9CFD8;box-sizing:border-box}
+.rail li.done .n{background:#E8EEFC;border-color:#E8EEFC;color:#2450C8}
+.rail li.cur{color:#15181E;font-weight:600;border-bottom-color:#2450C8}
+.rail li.cur .n{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.rail a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}.rail a:hover{color:#2450C8}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box;cursor:pointer}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5A6170}
+h1{font-size:24px;font-weight:650;margin:0;letter-spacing:-.01em}
+h2{font-size:16px;font-weight:650;margin:0}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.mod{border:1px solid #C9CFD8;border-radius:6px;background:#FFFFFF;overflow:hidden}
+.mhead{display:flex;flex-direction:column;gap:8px;padding:10px 12px;background:#EEF0F4;border-bottom:1px solid #C9CFD8}
+.mhead button.tog{border:0;background:transparent;font:inherit;font-weight:700;font-size:15px;color:#15181E;display:inline-flex;align-items:center;gap:8px;padding:4px 2px;cursor:pointer;text-align:left}
+.item{display:flex;align-items:center;gap:10px;padding:7px 12px 7px 8px;border-bottom:1px solid #EDEFF3;background:#FFFFFF;cursor:grab}
+.ico{width:26px;height:26px;border-radius:5px;display:inline-grid;place-items:center;color:#FFFFFF;font-size:12px;font-weight:700;flex:0 0 auto}
+.qty{display:inline-flex;align-items:center;border:1px solid #C9CFD8;border-radius:999px;overflow:hidden;flex:0 0 auto}
+.qty button{width:28px;height:28px;border:0;background:#FFFFFF;font:inherit;font-weight:700;color:#15181E;cursor:pointer}
+.qty span{min-width:30px;text-align:center;font-size:12.5px;font-weight:600}
+.mins{width:62px;text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:#5A6170;flex:0 0 auto}
+.sw{width:40px;height:24px;border-radius:12px;border:0;padding:0;position:relative;cursor:pointer;flex:0 0 auto}
+.pal{display:flex;align-items:center;gap:10px;padding:7px 10px;border:1px solid #DDE1E7;border-radius:8px;background:#FFFFFF;cursor:grab;font-size:13.5px;font-weight:600}
+.drop{border:2px dashed #C9CFD8;border-radius:6px;margin:8px 12px;padding:8px;text-align:center;color:#5A6170;font-size:13px}
+@media (min-width: 900px){.palette{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto}}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><span>Physics for Scientists &amp; Engineers</span>
+    <span style="flex: 1"></span>
+    <button class="ib" aria-label="Open chat" onClick="{{toggleChat}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc">
+      <button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button>
+      <button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button>
+      <button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button>
+    </div>
+  </header>
+  <nav class="rail" aria-label="Steps"><ol>
+    <li class="done"><a href="Upload.dc.html"><span class="n">✓</span>Textbook</a></li><li class="done"><a href="Chapters.dc.html"><span class="n">✓</span>Chapters</a></li><li class="done"><a href="ModuleSetup.dc.html"><span class="n">✓</span>Schedule</a></li><li class="done"><a href="ModuleSplit.dc.html"><span class="n">✓</span>Modules</a></li><li class="done"><a href="Folders.dc.html"><span class="n">✓</span>Files &amp; pictures</a></li><li class="cur"><a href="Lessons.dc.html"><span class="n">6</span>Lessons</a></li><li><a href="Preview.dc.html"><span class="n">7</span>Text</a></li><li><a href="Canvas.dc.html"><span class="n">8</span>Canvas</a></li><li><a href="Lectures.dc.html"><span class="n">9</span>Lectures</a></li>
+  </ol></nav>
+
+  <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 20px; padding: 22px 32px; box-sizing: border-box; align-items: flex-start">
+    <main style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px">
+        <div style="flex: 1 1 400px; display: flex; flex-direction: column; gap: 4px">
+          <span class="eyebrow">Laid out the way Canvas will show it · hours counted with the school rubric</span>
+          <h1>Course plan · 10 weeks · {{courseHours}} of 200 h</h1>
+        </div>
+        <button class="btn" onClick="{{balanceAll}}" style="min-height: 38px">Balance every week to 20 h</button>
+        <button class="btn" onClick="{{expandAll}}" style="min-height: 38px">{{expandText}}</button>
+      </div>
+
+      <sc-for list="{{weeks}}" as="w" hint-placeholder-count="10">
+        <section class="mod" onDragOver="{{w.over}}" onDrop="{{w.drop}}" style="outline: {{w.ring}}; outline-offset: 2px">
+          <div class="mhead">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+              <button class="tog" onClick="{{w.toggle}}" aria-expanded="{{w.openStr}}">
+                <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" style="transform: rotate({{w.rot}}); transition: transform .15s"><path d="M8 4l10 8-10 8z" fill="#15181E"></path></svg>
+                Week {{w.n}} · {{w.title}}
+              </button>
+              <span class="muted" style="font-size: 12.5px">{{w.chapters}} · Sessions {{w.sFrom}}–{{w.sTo}} · 8 × 2.5 h</span>
+              <span style="flex: 1"></span>
+              <span style="font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {{w.picBg}}; color: {{w.picFg}}">{{w.picText}}</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+              <div style="flex: 1 1 260px; height: 10px; border-radius: 5px; background: #DDE1E7; position: relative; overflow: hidden">
+                <sc-for list="{{w.segs}}" as="g" hint-placeholder-count="6"><span title="{{g.label}}" style="position: absolute; top: 0; bottom: 0; left: {{g.left}}; width: {{g.width}}; background: {{g.color}}"></span></sc-for>
+              </div>
+              <strong class="mono" style="font-size: 13px; color: {{w.hColor}}">{{w.hours}} / 20 h</strong>
+              <span style="font-size: 12.5px; font-weight: 600; color: {{w.hColor}}">{{w.gapText}}</span>
+              <sc-if value="{{w.off}}" hint-placeholder-val="{{ false }}"><button class="btn" onClick="{{w.balance}}" style="min-height: 30px; padding: 0 10px; font-size: 12.5px">{{w.balanceText}}</button></sc-if>
+            </div>
+          </div>
+          <sc-if value="{{w.open}}" hint-placeholder-val="{{ true }}">
+            <div>
+              <sc-for list="{{w.items}}" as="it" hint-placeholder-count="8">
+                <div class="item" draggable="true" onDragStart="{{it.start}}" style="opacity: {{it.op}}; padding-left: {{it.indent}}">
+                  <svg width="12" height="18" viewBox="0 0 14 20" aria-hidden="true" style="flex: 0 0 auto"><g fill="#9AA3B2"><circle cx="4" cy="4" r="1.5"></circle><circle cx="10" cy="4" r="1.5"></circle><circle cx="4" cy="10" r="1.5"></circle><circle cx="10" cy="10" r="1.5"></circle><circle cx="4" cy="16" r="1.5"></circle><circle cx="10" cy="16" r="1.5"></circle></g></svg>
+                  <span class="ico" style="background: {{it.color}}" aria-hidden="true">{{it.icon}}</span>
+                  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+                    <span style="font-weight: 600; font-size: 14px; text-decoration: {{it.strike}}">{{it.title}}</span>
+                    <span class="muted" style="font-size: 12px">{{it.meta}}</span>
+                  </div>
+                  <sc-if value="{{it.hasQty}}" hint-placeholder-val="{{ false }}">
+                    <div class="qty"><button onClick="{{it.dec}}" aria-label="Fewer {{it.unit}}">−</button><span>{{it.qty}}</span><button onClick="{{it.inc}}" aria-label="More {{it.unit}}">+</button></div>
+                  </sc-if>
+                  <span class="mins">{{it.minText}}</span>
+                  <button class="sw" role="switch" aria-checked="{{it.onStr}}" aria-label="Include {{it.title}}" onClick="{{it.toggle}}" style="background: {{it.swBg}}"><span style="position: absolute; top: 3px; left: {{it.knob}}; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 2px rgba(0,0,0,.3)"></span></button>
+                  <button class="ib" onClick="{{it.remove}}" aria-label="Remove {{it.title}}">×</button>
+                </div>
+              </sc-for>
+              <div class="drop">Drop an item here · or drag one between weeks</div>
+            </div>
+          </sc-if>
+        </section>
+      </sc-for>
+    </main>
+
+    <aside class="palette" style="flex: 1 1 280px; max-width: 320px; display: flex; flex-direction: column; gap: 16px">
+      <section class="card" style="padding: 16px; display: flex; flex-direction: column; gap: 8px">
+        <h2>Add to a week</h2>
+        <span class="muted" style="font-size: 12.5px">Stays beside you as you scroll. Drag onto any week, open or closed.</span>
+        <sc-for list="{{palette}}" as="p" hint-placeholder-count="8">
+          <div class="pal" draggable="true" onDragStart="{{p.start}}"><span class="ico" style="background: {{p.color}}" aria-hidden="true">{{p.icon}}</span><span style="flex: 1">{{p.label}}</span><span class="muted mono" style="font-size: 11.5px; font-weight: 500">{{p.rate}}</span></div>
+        </sc-for>
+      </section>
+      <section class="card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; font-size: 13px">
+        <h2>Contact-hour rubric</h2>
+        <div style="display: grid; grid-template-columns: 1fr auto; gap: 4px 12px">
+          <span>Textbook reading</span><span class="mono">4 min / page</span>
+          <span>Slides</span><span class="mono">2 min / slide</span>
+          <span>Discussion / group work</span><span class="mono">15 min</span>
+          <span>Quiz</span><span class="mono">1 min / question</span>
+          <span>Assignment</span><span class="mono">10 min / question</span>
+          <span>Lecture video</span><span class="mono">its length</span>
+        </div>
+        <span class="muted" style="font-size: 12px">Links and files are listed but not counted. Rates are set once for the school in Settings.</span>
+      </section>
+      <section class="card" style="padding: 16px; display: flex; flex-direction: column; gap: 8px; font-size: 13px">
+        <h2>How gaps get filled</h2>
+        <div role="group" aria-label="Fill mode" style="display: inline-flex; border: 1px solid #C9CFD8; border-radius: 8px; overflow: hidden">
+          <button onClick="{{setSpread}}" aria-pressed="{{spreadP}}" style="flex: 1; font: inherit; font-size: 12.5px; font-weight: 600; min-height: 34px; border: 0; border-right: 1px solid #C9CFD8; cursor: pointer; background: {{spreadBg}}; color: {{spreadFg}}">Spread across types</button>
+          <button onClick="{{setAssign}}" aria-pressed="{{assignP}}" style="flex: 1; font: inherit; font-size: 12.5px; font-weight: 600; min-height: 34px; border: 0; cursor: pointer; background: {{assignBg}}; color: {{assignFg}}">Assignments only</button>
+        </div>
+        <div style="display: flex; height: 10px; border-radius: 5px; overflow: hidden"><span style="width: 45%; background: #B4570B"></span><span style="width: 20%; background: #1E7A46"></span><span style="width: 20%; background: #0E7490"></span><span style="width: 15%; background: #9F1239"></span></div>
+        <div style="display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: 12.5px">
+          <span>Assignment questions</span><span class="mono">45%</span>
+          <span>Discussions / group work</span><span class="mono">20%</span>
+          <span>Slides</span><span class="mono">20%</span>
+          <span>Quiz questions</span><span class="mono">15%</span>
+        </div>
+        <span class="muted" style="font-size: 12px">The model’s first proposal uses this mix too. Trimming an over-full week takes assignment questions off first.</span>
+      </section>
+      <section class="card" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; font-size: 13.5px">
+        <h2>Whole course</h2>
+        <div style="display: flex; justify-content: space-between"><span>Planned</span><strong>{{courseHours}} of 200 h</strong></div>
+        <div style="display: flex; justify-content: space-between"><span>Weeks on target (±1 h)</span><strong>{{onTarget}} of 10</strong></div>
+        <div style="display: flex; justify-content: space-between"><span>Reading pages</span><strong>{{tot.pages}}</strong></div>
+        <div style="display: flex; justify-content: space-between"><span>Lecture videos</span><strong>{{tot.videos}} · {{tot.vmin}} min</strong></div>
+        <div style="display: flex; justify-content: space-between"><span>Assignment questions</span><strong>{{tot.aq}}</strong></div>
+        <div style="display: flex; justify-content: space-between"><span>Quiz questions</span><strong>{{tot.qq}}</strong></div>
+      </section>
+    </aside>
+  </div>
+  <footer class="foot">
+    <a class="btn" href="Folders.dc.html">Back</a>
+    <span class="muted" style="font-size: 13px">{{footNote}}</span>
+    <span style="flex: 1"></span>
+    <button class="btn">Write all 10 weeks (batch)</button>
+    <a class="btn btn-p" href="Preview.dc.html">Write Week 1 text</a>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Course plan" prompts="Fill Week 2 to 20 hours with discussions|Add a lab safety quiz to Week 1" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1700}}'>
+var TARGET = 1200;
+var T = {
+  reading: { label: 'Reading', icon: 'R', color: '#2450C8', rate: '4 min/page', unit: 'pages', per: 4 },
+  video: { label: 'Lecture video', icon: 'V', color: '#6B3FA0', rate: 'its length', unit: 'minutes', per: 1 },
+  slides: { label: 'Slideshow', icon: 'S', color: '#0E7490', rate: '2 min/slide', unit: 'slides', per: 2 },
+  discussion: { label: 'Discussion', icon: 'D', color: '#1E7A46', rate: '15 min', unit: '', per: 0 },
+  assign: { label: 'Assignment', icon: 'A', color: '#B4570B', rate: '10 min/question', unit: 'questions', per: 10 },
+  quiz: { label: 'Quiz', icon: 'Q', color: '#9F1239', rate: '1 min/question', unit: 'questions', per: 1 },
+  link: { label: 'Reference link', icon: 'L', color: '#4A5160', rate: 'not counted', unit: '', per: 0 },
+  file: { label: 'File', icon: 'F', color: '#4A5160', rate: 'not counted', unit: '', per: 0 }
+};
+var SEGCOL = { reading: '#2450C8', video: '#6B3FA0', slides: '#0E7490', discussion: '#1E7A46', assign: '#B4570B', quiz: '#9F1239' };
+var WEEKS = [
+  ['Measurement & 1D Motion', 'Ch 1–2', 59, ['Units, standards and the SI system', 'Dimensional analysis and significant figures', 'Position, velocity and speed', 'Acceleration and free fall']],
+  ['Vectors', 'Ch 3', 20, ['Vectors and scalars', 'Adding vectors', 'Components and unit vectors']],
+  ['Motion in Two Dimensions', 'Ch 4', 30, ['Position, velocity and acceleration in 2D', 'Projectile motion', 'Relative velocity']],
+  ['The Laws of Motion', 'Ch 5', 38, ['Newton’s first law and inertia', 'Force, mass and the second law', 'The third law', 'Friction']],
+  ['Circular Motion', 'Ch 6', 28, ['Forces in uniform circular motion', 'Nonuniform circular motion', 'Motion with resistive forces']],
+  ['Energy', 'Ch 7–8', 68, ['Work and kinetic energy', 'Potential energy', 'Conservation of mechanical energy', 'Power']],
+  ['Momentum and Collisions', 'Ch 9', 42, ['Linear momentum and impulse', 'Collisions in one dimension', 'Collisions in two dimensions', 'Center of mass']],
+  ['Rotation', 'Ch 10', 44, ['Angular position, velocity and acceleration', 'Torque', 'Moment of inertia']],
+  ['Angular Momentum', 'Ch 11', 26, ['Angular momentum', 'Conservation of angular momentum']],
+  ['Equilibrium and Elasticity', 'Ch 12', 26, ['Conditions for equilibrium', 'Center of gravity', 'Elastic properties of solids']]
+];
+var LENS = [5, 10, 15, 20];
+var NID = 1;
+function mk(type, title, qty) { return { id: NID++, type: type, title: title, qty: qty || 0, on: true }; }
+function mins(it) { if (!it.on) return 0; if (it.type === 'discussion') return 15; return it.qty * (T[it.type].per || 0); }
+function build() {
+  return WEEKS.map(function (w, wi) {
+    var k = w[3].length, pp = Math.round(w[2] / k), items = [], base = 0;
+    w[3].forEach(function (tp, ti) {
+      var len = [10, 15, 10, 20][ti % 4];
+      items.push(mk('reading', tp, pp)); items.push(mk('video', tp, len)); items.push(mk('discussion', 'Discuss: ' + tp)); items.push(mk('assign', tp + ' · problem set', 0));
+      base += pp * 4 + len + 15;
+    });
+    items.forEach(function (it) { if (it.type === 'assign') it.qty = 6; });
+    items.push(mk('slides', 'Week ' + (wi + 1) + ' recap', 20)); items.push(mk('quiz', 'Week ' + (wi + 1) + ' quiz', 15));
+    if (wi === 0) { items.push(mk('link', 'SI units reference')); items.push(mk('file', 'measurement-lab-handout.pdf')); }
+    items = balanced(items, 'spread', wi);
+    if (wi === 1) items.forEach(function (it) { if (it.type === 'assign') it.qty = Math.max(1, it.qty - 4); });
+    if (wi === 8) items.forEach(function (it) { if (it.type === 'assign') it.qty += 3; });
+    return items;
+  });
+}
+function fmtH(m) { return (Math.round(m / 6) / 10).toFixed(1); }
+var MIX = { assign: 0.45, discussion: 0.20, quiz: 0.15, slides: 0.20 };
+function totalOf(a) { return a.reduce(function (s, x) { return s + mins(x); }, 0); }
+function spreadOver(list, n) { var i = 0; while (n !== 0 && list.length && i < 2000) { var t = list[i % list.length]; if (n > 0) { t.qty++; n--; } else if (t.qty > 1) { t.qty--; n++; } i++; } }
+function balanced(items, mode, wi) {
+  var a = items.map(function (x) { return Object.assign({}, x); });
+  var diff = TARGET - totalOf(a);
+  var asg = a.filter(function (x) { return x.type === 'assign' && x.on; });
+  if (!asg.length) { var n = mk('assign', 'Extra practice · problem set', 1); a.push(n); asg = [n]; }
+  var quiz = a.filter(function (x) { return x.type === 'quiz' && x.on; });
+  if (!quiz.length) { var qz = mk('quiz', 'Week quiz', 1); a.push(qz); quiz = [qz]; }
+  if (mode === 'spread' && diff > 0) {
+    var slides = a.filter(function (x) { return x.type === 'slides' && x.on; });
+    if (!slides.length) { var sl = mk('slides', 'Week recap', 1); a.push(sl); slides = [sl]; }
+    var topics = WEEKS[wi === undefined ? 0 : wi][3];
+    var nd = Math.round(diff * MIX.discussion / 15);
+    for (var d = 0; d < nd; d++) a.push(mk('discussion', 'Group work: ' + topics[d % topics.length]));
+    spreadOver(asg, Math.round(diff * MIX.assign / 10));
+    spreadOver(slides, Math.round(diff * MIX.slides / 2));
+    spreadOver(quiz, Math.round(diff * MIX.quiz));
+  } else {
+    spreadOver(asg, Math.trunc(diff / 10));
+  }
+  var rest = TARGET - totalOf(a);
+  spreadOver(quiz, rest);
+  return a;
+}
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { weeks: build(), open: { 0: true, 1: true }, drag: null, over: null, mode: 'spread' }; }
+  setWeek(w, items) { var weeks = this.state.weeks.slice(); weeks[w] = items; this.setState({ weeks: weeks }); }
+  move(toW) {
+    var st = this.state, d = st.drag; if (!d) return;
+    var weeks = st.weeks.map(function (a) { return a.slice(); });
+    if (d.newType) { var t = T[d.newType], q = { reading: 4, video: 10, slides: 10, assign: 5, quiz: 10 }[d.newType] || 0; weeks[toW].push(mk(d.newType, 'New ' + t.label.toLowerCase(), q)); }
+    else { var it = weeks[d.w].splice(d.i, 1)[0]; if (it) weeks[toW].push(it); }
+    var open = Object.assign({}, st.open); open[toW] = true;
+    this.setState({ weeks: weeks, drag: null, over: null, open: open });
+  }
+  update(w, i, patch) { var items = this.state.weeks[w].slice(); if (patch === null) items.splice(i, 1); else items[i] = Object.assign({}, items[i], patch); this.setWeek(w, items); }
+  renderVals() {
+    var s = this, st = this.state, courseMin = 0, onTarget = 0, tot = { pages: 0, videos: 0, vmin: 0, aq: 0, qq: 0 };
+    var allOpen = WEEKS.every(function (_, i) { return st.open[i]; });
+    var weeks = st.weeks.map(function (items, wi) {
+      var total = 0, byType = {};
+      var rows = items.map(function (it, ii) {
+        var t = T[it.type], m = mins(it); total += m; if (m) byType[it.type] = (byType[it.type] || 0) + m;
+        if (it.on) { if (it.type === 'reading') tot.pages += it.qty; if (it.type === 'video') { tot.videos++; tot.vmin += it.qty; } if (it.type === 'assign') tot.aq += it.qty; if (it.type === 'quiz') tot.qq += it.qty; }
+        var meta = it.type === 'reading' ? 'Reading · ' + it.qty + ' textbook pages'
+          : it.type === 'video' ? 'Lecture video · blank placeholder until recorded'
+          : it.type === 'slides' ? 'Slideshow · ' + it.qty + ' slides'
+          : it.type === 'discussion' ? 'Discussion / group work · live or in Canvas'
+          : it.type === 'assign' ? 'Assignment · ' + it.qty + ' questions'
+          : it.type === 'quiz' ? 'Quiz · ' + it.qty + ' questions'
+          : 'Reference · listed, not counted in hours';
+        var hasQty = ['reading', 'slides', 'assign', 'quiz', 'video'].indexOf(it.type) >= 0;
+        return {
+          title: it.title, meta: it.on ? meta : 'Off · not written, uploaded or counted', icon: t.icon, color: t.color,
+          indent: it.type === 'reading' || it.type === 'link' || it.type === 'file' || it.type === 'slides' || it.type === 'quiz' ? '8px' : '36px',
+          hasQty: hasQty, qty: it.type === 'video' ? it.qty + 'm' : it.qty, unit: t.unit,
+          minText: it.type === 'link' || it.type === 'file' ? '—' : m + ' min',
+          op: it.on ? '1' : '0.55', strike: it.on ? 'none' : 'line-through',
+          onStr: String(it.on), swBg: it.on ? '#2450C8' : '#C9CFD8', knob: it.on ? '19px' : '3px',
+          start: function (e) { try { e.dataTransfer.setData('text/plain', 'x'); } catch (x) {} s.setState({ drag: { w: wi, i: ii } }); },
+          toggle: function () { s.update(wi, ii, { on: !it.on }); },
+          remove: function () { s.update(wi, ii, null); },
+          inc: function () { if (it.type === 'video') { var k = LENS.indexOf(it.qty); s.update(wi, ii, { qty: LENS[Math.min(3, k + 1)] }); } else s.update(wi, ii, { qty: it.qty + 1 }); },
+          dec: function () { if (it.type === 'video') { var k = LENS.indexOf(it.qty); s.update(wi, ii, { qty: LENS[Math.max(0, k - 1)] }); } else s.update(wi, ii, { qty: Math.max(1, it.qty - 1) }); }
+        };
+      });
+      courseMin += total;
+      var diff = total - TARGET, ok = Math.abs(diff) <= 60; if (ok) onTarget++;
+      var left = 0, segs = [], scale = Math.max(TARGET, total);
+      ['reading', 'video', 'slides', 'discussion', 'assign', 'quiz'].forEach(function (k) { var m = byType[k] || 0; if (!m) return; segs.push({ left: (left / scale * 100) + '%', width: (m / scale * 100) + '%', color: SEGCOL[k], label: T[k].label + ' · ' + m + ' min' }); left += m; });
+      segs.push({ left: (TARGET / scale * 100) + '%', width: '2px', color: '#15181E', label: '20 h target' });
+      var open = !!st.open[wi], isOver = st.over === wi && st.drag;
+      return {
+        n: wi + 1, title: WEEKS[wi][0], chapters: WEEKS[wi][1], sFrom: wi * 8 + 1, sTo: wi * 8 + 8,
+        items: rows, open: open, openStr: String(open), rot: open ? '90deg' : '0deg', segs: segs,
+        hours: fmtH(total), hColor: ok ? '#1A6A3D' : '#8A4308',
+        gapText: ok ? 'on target' : diff < 0 ? fmtH(-diff) + ' h short' : fmtH(diff) + ' h over',
+        off: !ok, balanceText: diff < 0 ? (st.mode === 'spread' ? 'Fill the gap' : 'Add assignment questions') : 'Trim to 20 h',
+        balance: function () { s.setWeek(wi, balanced(s.state.weeks[wi], s.state.mode, wi)); },
+        picText: wi < 2 ? 'Pictures ready' : 'Pictures processing', picBg: wi < 2 ? '#E6F3EC' : '#FDF1E4', picFg: wi < 2 ? '#1A6A3D' : '#8A4308',
+        ring: isOver ? '2px dashed #2450C8' : 'none',
+        toggle: function () { var o = Object.assign({}, s.state.open); o[wi] = !o[wi]; s.setState({ open: o }); },
+        over: function (e) { e.preventDefault(); if (s.state.over !== wi) s.setState({ over: wi }); },
+        drop: function (e) { e.preventDefault(); s.move(wi); }
+      };
+    });
+    var off = 10 - onTarget;
+    return {
+      chatOpen: !!st.chatOpen, toggleChat: function () { s.setState({ chatOpen: !s.state.chatOpen }); },
+      weeks: weeks, tot: tot, courseHours: fmtH(courseMin), onTarget: onTarget,
+      footNote: off ? off + (off === 1 ? ' week is' : ' weeks are') + ' off the 20 h target' : 'Every week meets the 20 h target',
+      expandText: allOpen ? 'Collapse all weeks' : 'Expand all weeks',
+      expandAll: function () { var o = {}; if (!allOpen) WEEKS.forEach(function (_, i) { o[i] = true; }); s.setState({ open: o }); },
+      balanceAll: function () { s.setState({ weeks: s.state.weeks.map(function (w, i) { return balanced(w, s.state.mode, i); }) }); },
+      spreadP: String(st.mode === 'spread'), assignP: String(st.mode === 'assign'),
+      spreadBg: st.mode === 'spread' ? '#2450C8' : '#FFFFFF', spreadFg: st.mode === 'spread' ? '#FFFFFF' : '#15181E',
+      assignBg: st.mode === 'assign' ? '#2450C8' : '#FFFFFF', assignFg: st.mode === 'assign' ? '#FFFFFF' : '#15181E',
+      setSpread: function () { s.setState({ mode: 'spread' }); }, setAssign: function () { s.setState({ mode: 'assign' }); },
+      palette: Object.keys(T).map(function (k) { return { label: T[k].label, icon: T[k].icon, color: T[k].color, rate: T[k].rate, start: function (e) { try { e.dataTransfer.setData('text/plain', k); } catch (x) {} s.setState({ drag: { newType: k } }); } }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

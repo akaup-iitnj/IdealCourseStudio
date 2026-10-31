@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lecture · Script</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+h2{font-size:16px;font-weight:650;margin:0}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.stages{display:flex;flex-wrap:wrap;gap:6px;padding:10px 32px;background:#FFFFFF;border-bottom:1px solid #DDE1E7}
+.sg{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;background:#F4F5F7;color:#5A6170;text-decoration:none}
+.sg.done{background:#E6F3EC;color:#1A6A3D}.sg.cur{background:#2450C8;color:#FFFFFF}
+.chunk{display:flex;gap:16px;padding:16px 20px;border-bottom:1px solid #EDEFF3}
+.chunk .meta{flex:0 0 72px;display:flex;flex-direction:column;gap:2px;font-size:12px}
+.para{font-family:'Source Serif 4',Georgia,serif;font-size:16.5px;line-height:1.7;margin:0}
+.beat{font-family:'Instrument Sans',sans-serif;display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;padding:1px 6px;border-radius:5px;background:#2450C8;color:#FFFFFF;vertical-align:2px;margin-right:4px}
+.flag{background:#FDF1E4;border-bottom:2px solid #B4570B}
+.bt{font-size:12px;padding:6px 8px;border-radius:6px;background:#F4F5F7;display:flex;flex-direction:column;gap:1px}
+.ok{color:#1A6A3D;font-weight:700}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><a href="Lectures.dc.html" style="color: #15181E">Lectures</a><span class="muted">/</span><span>Position, Velocity, and Speed · 15 min</span>
+    <span style="flex: 1"></span>
+    <button onClick="{{toggleChat}}" aria-label="Open chat" style="height: 32px; border: 0; border-radius: 6px; background: transparent; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; font: inherit; font-weight: 500; color: #15181E; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc"><button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button><button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button><button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button></div>
+  </header>
+  <nav class="stages" aria-label="Lecture stages">
+    <a class="sg done" href="LecPlan.dc.html">✓ 1 Plan</a><a class="sg cur" href="LecScript.dc.html" aria-current="page">2 Script</a><a class="sg" href="LecVoice.dc.html">3 Voice</a><a class="sg" href="LecTiming.dc.html">4 Transcript</a><a class="sg" href="LectureStudio.dc.html">5 Beats</a><a class="sg" href="LecScene.dc.html">6 Scene</a><a class="sg" href="LecRender.dc.html">7 Render</a>
+  </nav>
+
+  <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 16px; padding: 20px 32px; box-sizing: border-box; align-items: flex-start">
+    <section class="card" style="flex: 999 1 640px; min-width: 0">
+      <div style="padding: 12px 20px; border-bottom: 1px solid #DDE1E7; display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <h2 style="flex: 1 1 260px">Narration + beats, written together</h2>
+        <span class="muted" style="font-size: 12.5px">One paragraph = one voice chunk.</span>
+      </div>
+      <div style="padding: 10px 20px; border-bottom: 1px solid #EDEFF3; background: #F5F8FF; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 13px">
+        <span class="beat">s01</span><span>A beat: the screen changes on the word right after the tag.</span>
+        <span class="beat">s01.a</span><span>A sub-beat: a new picture or line inside section 1, while the section stays on.</span>
+        <span class="muted">Each tag has a card under its paragraph saying what appears and which page it comes from.</span>
+      </div>
+      <div class="chunk">
+        <div class="meta"><strong>¶ 1</strong><span class="muted mono">412 ch</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <p class="para"><span class="beat">s01</span>Let’s start with where something is. <span class="beat">s01.a</span>We call that its position, and we write it as x of t. <span class="beat">s01.b</span>Picture a car on a straight road with a number line underneath it.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <div class="bt"><strong>s01.a · handwriting</strong><span>Write “position = x(t)” (p. 26)</span></div>
+            <div class="bt"><strong>s01.b · pen diagram</strong><span>Number line, car on it (p. 26)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="chunk">
+        <div class="meta"><strong>¶ 2</strong><span class="muted mono">538 ch</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <p class="para"><span class="beat">s02</span>If the car moves from x one to x two, the change is delta x. That is the displacement. It only cares where you started and where you ended, <span class="flag">as you can see in the figure</span>.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <div class="bt"><strong>s02 · handwriting</strong><span>Arc from x₁ to x₂, write Δx = x₂ − x₁ (p. 27)</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="chunk" style="border-bottom: 0">
+        <div class="meta"><strong>¶ 3</strong><span class="muted mono">466 ch</span></div>
+        <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0">
+          <p class="para"><span class="beat">s03</span>Divide that by the time it took, delta t, and you get the average velocity. <span class="beat">s03.a</span>On a position time graph, that is just the slope of the line joining two points.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <div class="bt"><strong>s03 · handwriting</strong><span>Write v̄ = Δx / Δt in orange (p. 28)</span></div>
+            <div class="bt" style="background: #E6F3EC"><strong>s03.a · book picture</strong><span class="mono">figures/position-time-graph-car.png (p. 27)</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside style="flex: 1 1 320px; max-width: 380px; display: flex; flex-direction: column; gap: 16px">
+      <section class="card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+        <h2>Length</h2>
+        <div style="display: flex; gap: 20px"><div style="display: flex; flex-direction: column"><span class="muted" style="font-size: 12.5px">Words</span><strong style="font-size: 20px">2,310</strong></div><div style="display: flex; flex-direction: column"><span class="muted" style="font-size: 12.5px">At 155 wpm</span><strong style="font-size: 20px">14:54</strong></div><div style="display: flex; flex-direction: column"><span class="muted" style="font-size: 12.5px">Beats</span><strong style="font-size: 20px">142</strong></div></div>
+      </section>
+      <section class="card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px">
+        <h2>House rules</h2>
+        <div><span class="ok">✓</span> Says only what is in pp. 25–31. No invented names or numbers</div>
+        <div><span class="ok">✓</span> Every beat note ends with its page</div>
+        <div><span class="ok">✓</span> Each beat starts on words copied exactly from the narration</div>
+        <div><span class="ok">✓</span> Paragraphs are 250–700 characters</div>
+        <div><span class="ok">✓</span> Screens change every 3–8 seconds, none shorter than 2.5</div>
+        <div style="padding: 8px 10px; border-radius: 8px; background: #FDF1E4; color: #6E3606"><strong>!</strong> ¶ 2 says “as you can see in the figure”, but s02 has no book picture. Add one or reword.</div>
+      </section>
+      <section class="card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+        <h2>Lock before voice</h2>
+        <span class="muted" style="font-size: 13px">Voice is made only from a locked script. Changing a word afterwards unlocks it, and the voice has to be made again.</span>
+        <button class="btn btn-p">Lock script</button>
+      </section>
+    </aside>
+  </div>
+  <footer class="foot">
+    <a class="btn" href="LecPlan.dc.html">Back to plan</a>
+    <button class="btn">Edit in chat</button>
+    <span style="flex: 1"></span>
+    <a class="btn" href="LecVoice.dc.html">Next: Voice (locks script)</a>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Lecture · Script" prompts="Reword paragraph 2 so it doesn't mention a figure|Slow the pace to 140 words a minute" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() { var c = this, st = this.state || {}; return { chatOpen: !!st.chatOpen, toggleChat: function () { c.setState({ chatOpen: !((c.state || {}).chatOpen) }); } }; }
+}
+</script>
+</body>
+</html>

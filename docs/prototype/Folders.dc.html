@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module folders and picture bank</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.ib{min-width:36px;height:32px;border:0;border-radius:6px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#15181E;font:inherit;font-weight:500;padding:0 10px;text-decoration:none;cursor:pointer}
+.rail{background:#FFFFFF;border-bottom:1px solid #DDE1E7;padding:0 32px}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+.rail li{display:flex;align-items:center;gap:8px;padding:12px 12px 10px;font-size:13px;color:#5A6170;border-bottom:2px solid transparent}
+.rail .n{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:600;border:1px solid #C9CFD8;box-sizing:border-box}
+.rail li.done .n{background:#E8EEFC;border-color:#E8EEFC;color:#2450C8}
+.rail li.cur{color:#15181E;font-weight:600;border-bottom-color:#2450C8}
+.rail li.cur .n{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.rail a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}.rail a:hover{color:#2450C8}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box;cursor:pointer}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+h2{font-size:16px;font-weight:650;margin:0}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.dot{width:24px;height:24px;border-radius:50%;display:inline-grid;place-items:center;flex:0 0 auto;font-size:12px;font-weight:700}
+.log div{display:flex;gap:10px;padding:3px 0}
+.log span:first-child{color:#5A6170;flex:0 0 auto}
+.node{display:flex;align-items:center;gap:8px;width:100%;text-align:left;font:inherit;font-size:13px;border:0;border-radius:6px;padding:6px 8px;cursor:pointer;color:#15181E}
+.pic input{font:inherit;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;min-height:34px;width:100%;box-sizing:border-box;border:1px solid #C9CFD8;border-radius:6px;padding:0 8px;color:#15181E;background:#FFFFFF}
+.chipf{font:inherit;font-size:12.5px;font-weight:600;min-height:30px;padding:0 12px;border-radius:999px;border:1px solid #C9CFD8;cursor:pointer}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(36,80,200,.55)}100%{box-shadow:0 0 0 12px rgba(36,80,200,0)}}
+@keyframes stripes{to{background-position:28px 0}}
+.live{width:12px;height:12px;border-radius:50%;background:#2450C8;animation:pulse 1.4s ease-out infinite}
+.bar{background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.18) 0 7px,transparent 7px 14px);background-size:28px 100%;animation:stripes 1s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-12}}
+.flow{stroke-dasharray:4 2;animation:flow .8s linear infinite}
+@media (prefers-reduced-motion: reduce){.live,.bar,.flow{animation:none}}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><span>Physics for Scientists &amp; Engineers</span>
+    <span style="flex: 1"></span>
+    <button class="ib" aria-label="Open chat" onClick="{{toggleChat}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc">
+      <button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button>
+      <button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button>
+      <button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button>
+    </div>
+  </header>
+  <nav class="rail" aria-label="Steps"><ol>
+    <li class="done"><a href="Upload.dc.html"><span class="n">✓</span>Textbook</a></li><li class="done"><a href="Chapters.dc.html"><span class="n">✓</span>Chapters</a></li><li class="done"><a href="ModuleSetup.dc.html"><span class="n">✓</span>Schedule</a></li><li class="done"><a href="ModuleSplit.dc.html"><span class="n">✓</span>Modules</a></li><li class="cur"><a href="Folders.dc.html"><span class="n">5</span>Files &amp; pictures</a></li><li><a href="Lessons.dc.html"><span class="n">6</span>Lessons</a></li><li><a href="Preview.dc.html"><span class="n">7</span>Text</a></li><li><a href="Canvas.dc.html"><span class="n">8</span>Canvas</a></li><li><a href="Lectures.dc.html"><span class="n">9</span>Lectures</a></li>
+  </ol></nav>
+
+  <main style="flex: 1; width: 100%; max-width: 1400px; margin: 0 auto; box-sizing: border-box; padding: 22px 32px; display: flex; flex-direction: column; gap: 16px">
+    <section class="card" role="status" aria-live="polite" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; border-color: #C7D4F5">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px">
+        <span class="live" aria-hidden="true"></span>
+        <div style="flex: 1 1 420px; display: flex; flex-direction: column">
+          <strong style="font-size: 17px">Working · Week 2 · turning Chapter 3 “Vectors” into editable text</strong>
+          <span class="muted" style="font-size: 13px">On page {{page}} of 98 · 41 of 63 equations in this chapter done · last update {{ago}}</span>
+        </div>
+        <div style="display: flex; gap: 22px; font-size: 13px">
+          <div style="display: flex; flex-direction: column"><span class="muted">Elapsed</span><strong class="mono" style="font-size: 15px">{{elapsed}}</strong></div>
+          <div style="display: flex; flex-direction: column"><span class="muted">About</span><strong class="mono" style="font-size: 15px">9 min left</strong></div>
+          <div style="display: flex; flex-direction: column"><span class="muted">Done</span><strong class="mono" style="font-size: 15px">{{pct}}%</strong></div>
+        </div>
+      </div>
+      <div style="height: 10px; border-radius: 5px; background: #E8EEFC; overflow: hidden"><div class="bar" style="height: 10px; border-radius: 5px; background-color: #2450C8; width: {{pctW}}"></div></div>
+      <span class="muted" style="font-size: 12.5px">You can leave this screen. Windows will notify you when it finishes. If nothing moves for 60 seconds, this bar turns orange and says what is stuck.</span>
+    </section>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 16px">
+      <section class="card" style="flex: 2 1 720px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px"><h2 style="flex: 1 1 300px">Whole course · 10 weeks · 80 sessions</h2><span class="muted" style="font-size: 12.5px">Week 1 can be planned now · all weeks plannable in about 9 min</span></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 12.5px; padding: 8px 10px; border-radius: 8px; background: #F4F5F7">
+          <span style="display: inline-flex; align-items: center; gap: 6px"><svg width="14" height="18" viewBox="0 0 14 18" aria-hidden="true"><path d="M7 1v13M2 10l5 5 5-5" fill="none" stroke="#2450C8" stroke-width="2"></path></svg>Weeks go through one after another, top to bottom</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px"><svg width="24" height="14" viewBox="0 0 24 14" aria-hidden="true"><path d="M1 7h19M15 2l5 5-5 5" fill="none" stroke="#2450C8" stroke-width="2"></path></svg>The next step starts as soon as that week’s step before it is done</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 18px; height: 3px; background: #2450C8; border-radius: 2px"></span>blue = the handoff happening right now</span><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 18px; height: 3px; background: #B4570B; border-radius: 2px"></span>orange = handed off but stuck</span>
+        </div>
+        <div style="overflow-x: auto">
+          <div style="display: grid; grid-template-columns: 54px minmax(200px, 2.2fr) 70px 50px 56px 30px 56px 50px 56px 30px 56px 96px; column-gap: 4px; align-items: center; font-size: 13px; min-width: 900px">
+            <span class="muted" style="font-size: 12px; font-weight: 600; padding-bottom: 6px">Week</span><span class="muted" style="font-size: 12px; font-weight: 600; padding-bottom: 6px">Chapters</span><span class="muted" style="font-size: 12px; font-weight: 600; padding-bottom: 6px">Sessions</span><span class="muted" style="font-size: 12px; font-weight: 600; padding-bottom: 6px">Pages</span>
+            <span class="muted" style="font-size: 12px; font-weight: 600; padding-bottom: 6px">Cut PDF</span><span></span><span class="muted" style="font-size: 12px; font-weight: 600; padding-bottom: 6px">Markdown</span><span></span>
+            <span class="muted" style="font-size: 12px; font-weight: 600; padding-bottom: 6px">Pictures</span><span></span><span class="muted" style="font-size: 12px; font-weight: 600; padding-bottom: 6px">Name &amp; tag</span><span class="muted" style="font-size: 12px; font-weight: 600; padding-bottom: 6px">Plan lessons</span>
+            <sc-for list="{{rows}}" as="r" hint-placeholder-count="10">
+              <div style="display: contents">
+                <strong>Wk {{r.n}}</strong><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.chapters}}</span><span class="mono">{{r.sessions}}</span><span class="mono">{{r.pages}}</span>
+                <span style="display: flex; justify-content: center"><span class="dot" style="background: {{r.cut.bg}}; color: {{r.cut.fg}}">{{r.cut.ch}}</span></span>
+                <svg width="30" height="14" viewBox="0 0 30 14" aria-hidden="true"><path class="{{r.h1.cls}}" d="M2 7h22" fill="none" stroke="{{r.h1.color}}" stroke-width="2"></path><path d="M20 2l6 5-6 5" fill="none" stroke="{{r.h1.color}}" stroke-width="2"></path></svg>
+                <span style="display: flex; justify-content: center"><span class="dot" style="background: {{r.md.bg}}; color: {{r.md.fg}}">{{r.md.ch}}</span></span>
+                <span></span>
+                <span style="display: flex; justify-content: center"><span class="dot" style="background: {{r.pic.bg}}; color: {{r.pic.fg}}">{{r.pic.ch}}</span></span>
+                <svg width="30" height="14" viewBox="0 0 30 14" aria-hidden="true"><path class="{{r.h2.cls}}" d="M2 7h22" fill="none" stroke="{{r.h2.color}}" stroke-width="2"></path><path d="M20 2l6 5-6 5" fill="none" stroke="{{r.h2.color}}" stroke-width="2"></path></svg>
+                <span style="display: flex; justify-content: center"><span class="dot" style="background: {{r.tag.bg}}; color: {{r.tag.fg}}">{{r.tag.ch}}</span></span>
+                <span style="font-size: 12.5px; font-weight: 600; color: {{r.planColor}}">{{r.plan}}</span>
+              </div>
+              <sc-if value="{{r.notLast}}" hint-placeholder-val="{{ true }}">
+                <div style="display: contents">
+                  <span></span><span></span><span></span><span></span>
+                  <span style="display: flex; justify-content: center"><svg width="14" height="18" viewBox="0 0 14 18" aria-hidden="true"><path class="{{r.v1.cls}}" d="M7 1v13" fill="none" stroke="{{r.v1.color}}" stroke-width="2"></path><path d="M2 10l5 5 5-5" fill="none" stroke="{{r.v1.color}}" stroke-width="2"></path></svg></span>
+                  <span></span>
+                  <span style="display: flex; justify-content: center"><svg width="14" height="18" viewBox="0 0 14 18" aria-hidden="true"><path class="{{r.v2.cls}}" d="M7 1v13" fill="none" stroke="{{r.v2.color}}" stroke-width="2"></path><path d="M2 10l5 5 5-5" fill="none" stroke="{{r.v2.color}}" stroke-width="2"></path></svg></span>
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding: 8px 10px; border-radius: 8px; background: #FDF1E4; color: #6E3606; font-size: 13px">Week 3 · The first reader couldn’t make sense of Chapter 4’s equations, so it’s trying a second reader. Nothing for you to do yet.</div>
+        <div style="padding: 10px 12px; border-radius: 8px; background: #E8EEFC; color: #1A3C9A; font-size: 13px">Lesson planning only needs the Markdown. Pictures keep processing in the background, and readings pick them up by file name once they’re tagged.</div>
+      </section>
+
+      <section class="card" style="flex: 1 1 320px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+        <div style="display: flex; align-items: center"><h2 style="flex: 1">Activity</h2><button class="ib" style="font-size: 12.5px; color: #2450C8">Open full log</button></div>
+        <div class="log" style="font-size: 13px">
+          <div><span class="mono" style="font-size: 12px">2:22 pm</span><span>Copied a math equation from page 87 (Chapter 3) so it shows correctly in the reading</span></div>
+          <div><span class="mono" style="font-size: 12px">2:22 pm</span><span>Cut out Figure 3.6 from page 86 and saved it as a picture</span></div>
+          <div><span class="mono" style="font-size: 12px">2:22 pm</span><span>Copied Table 3.1 from page 85 as an editable table</span></div>
+          <div><span class="mono" style="font-size: 12px">2:21 pm</span><span>Couldn’t read the equations in Chapter 4, so it’s trying again a second way</span></div>
+          <div><span class="mono" style="font-size: 12px">2:21 pm</span><span>Named 13 of the 17 pictures in Chapter 2</span></div>
+          <div><span class="mono" style="font-size: 12px">2:20 pm</span><span>Finished turning Chapter 2 into editable text for Week 1</span></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" style="display: flex; flex-wrap: wrap; min-width: 0; overflow: hidden">
+      <nav aria-label="Project folder" style="flex: 0 1 330px; min-width: 260px; border-right: 1px solid #DDE1E7; padding: 14px 10px; display: flex; flex-direction: column; gap: 2px; background: #FAFBFC">
+        <div style="padding: 0 8px 8px; display: flex; flex-direction: column"><h2>Project folder</h2><span class="muted mono" style="font-size: 11.5px">Documents\Course Studio\physics\</span></div>
+        <div class="node mono" style="cursor: default; font-size: 12px">physics-textbook.pdf <span class="muted">· original</span></div>
+        <sc-for list="{{tree}}" as="w" hint-placeholder-count="10">
+          <div style="display: flex; flex-direction: column">
+            <div class="node mono" style="cursor: default; font-size: 12px; font-weight: 600; color: {{w.color}}"><svg width="14" height="12" viewBox="0 0 14 12" aria-hidden="true"><path d="M1 2h4l1 1.5h7V11H1z" fill="none" stroke="currentColor" stroke-width="1.3"></path></svg>{{w.folder}}</div>
+            <sc-for list="{{w.chs}}" as="c" hint-placeholder-count="1">
+              <button class="node" onClick="{{c.pick}}" aria-current="{{c.cur}}" style="padding-left: 26px; background: {{c.bg}}">
+                <span style="flex: 1; display: flex; flex-direction: column; min-width: 0"><span style="font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Ch {{c.n}} · {{c.title}}</span><span class="muted mono" style="font-size: 11px">ch{{c.nn}}.md · ch{{c.nn}}.pdf · pictures\</span></span>
+                <span style="font-size: 11.5px; font-weight: 600; padding: 2px 7px; border-radius: 999px; background: {{c.badgeBg}}; color: {{c.badgeFg}}; white-space: nowrap">{{c.badge}}</span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-for>
+      </nav>
+
+      <div style="flex: 1 1 520px; min-width: 0; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+          <div style="flex: 1 1 300px; display: flex; flex-direction: column">
+            <span class="muted mono" style="font-size: 11.5px">{{sel.path}}</span>
+            <h2>Pictures in Ch {{sel.n}} · {{sel.title}}</h2>
+            <span class="muted" style="font-size: 12.5px">{{sel.summary}}</span>
+          </div>
+          <button class="btn" onClick="{{prevCh}}" style="min-height: 36px">← Previous chapter</button>
+          <button class="btn btn-p" onClick="{{nextCh}}" style="min-height: 36px">Next chapter →</button>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px">
+          <sc-for list="{{filters}}" as="f" hint-placeholder-count="4"><button class="chipf" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="background: {{f.bg}}; color: {{f.fg}}; border-color: {{f.bd}}">{{f.label}}</button></sc-for>
+        </div>
+        <sc-if value="{{sel.pending}}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 28px; border: 2px dashed #C9CFD8; border-radius: 10px; text-align: center; color: #5A6170">Pictures for this chapter start after its Markdown is done. About {{sel.eta}}.</div>
+        </sc-if>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px">
+          <sc-for list="{{pics}}" as="p" hint-placeholder-count="6">
+            <div class="pic" style="display: flex; flex-direction: column; gap: 5px; opacity: {{p.op}}">
+              <div style="height: 92px; border-radius: 8px; background: #F4F5F7; display: grid; place-items: center; position: relative">
+                <sc-if value="{{p.isGraph}}" hint-placeholder-val="{{ true }}"><svg width="110" height="64" viewBox="0 0 120 80" aria-hidden="true"><path d="M10 70h100M10 70V10" stroke="#5A6170" stroke-width="2"></path><path d="M10 70Q50 65 70 40T110 12" fill="none" stroke="#2450C8" stroke-width="3"></path></svg></sc-if>
+                <sc-if value="{{p.isTable}}" hint-placeholder-val="{{ false }}"><svg width="110" height="64" viewBox="0 0 120 80" aria-hidden="true"><rect x="12" y="14" width="96" height="54" fill="none" stroke="#5A6170" stroke-width="2"></rect><path d="M12 32h96M12 50h96M50 14v54" stroke="#5A6170" stroke-width="1.5"></path></svg></sc-if>
+                <sc-if value="{{p.isDiagram}}" hint-placeholder-val="{{ false }}"><svg width="110" height="64" viewBox="0 0 120 80" aria-hidden="true"><path d="M10 40h100" stroke="#5A6170" stroke-width="2"></path><rect x="30" y="26" width="26" height="14" rx="3" fill="#B4570B"></rect><path d="M60 33h30" stroke="#2450C8" stroke-width="3"></path></svg></sc-if>
+                <sc-if value="{{p.isPhoto}}" hint-placeholder-val="{{ false }}"><svg width="110" height="64" viewBox="0 0 120 80" aria-hidden="true"><circle cx="40" cy="22" r="8" fill="#2450C8"></circle><circle cx="40" cy="46" r="8" fill="#2450C8" opacity=".6"></circle><circle cx="40" cy="70" r="8" fill="#2450C8" opacity=".3"></circle></svg></sc-if>
+                <sc-if value="{{p.naming}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: 6px; right: 6px; font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 999px; background: #E8EEFC; color: #1A3C9A">naming…</span></sc-if>
+              </div>
+              <input aria-label="Picture file name" value="{{p.name}}">
+              <span style="font-size: 12px; color: {{p.noteColor}}; font-weight: {{p.noteWeight}}">{{p.note}}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 6px; border-top: 1px solid #EDEFF3">
+          <label style="display: flex; gap: 8px; align-items: center; font-size: 13.5px"><input type="checkbox" checked="{{sel.checked}}" onChange="{{toggleChecked}}"> I’ve looked through this chapter’s pictures</label>
+          <span class="muted" style="font-size: 12.5px">{{checkedCount}} of 12 chapters checked. Optional: readings use pictures as soon as they’re named.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="foot">
+    <a class="btn" href="ModuleSplit.dc.html">Back</a>
+    <a class="btn" href="#">Open folder in Explorer</a>
+    <span style="flex: 1"></span>
+    <span class="muted" style="font-size: 13px">Pictures keep going while you plan</span>
+    <a class="btn btn-p" href="Lessons.dc.html">Plan lessons now</a>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Files and pictures" prompts="Why is Week 3 retrying?|Rename the free-fall picture" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1640}}'>
+var ST = { d: ['#E6F3EC', '#1E7A46', '✓'], r: ['#2450C8', '#FFFFFF', '…'], w: ['#EDEFF3', '#9AA3B2', '·'], x: ['#FDF1E4', '#8A4308', '!'] };
+var WEEKS = [
+  { ch: 'Ch 1–2 Measurement · Motion in 1D', pages: 59, s: 'ddrr', plan: 'Ready now' },
+  { ch: 'Ch 3 Vectors', pages: 20, s: 'drww', plan: '~2 min' },
+  { ch: 'Ch 4 Motion in Two Dimensions', pages: 30, s: 'dxww', plan: 'retrying' },
+  { ch: 'Ch 5 The Laws of Motion', pages: 38, s: 'dwww', plan: '~4 min' },
+  { ch: 'Ch 6 Circular Motion', pages: 28, s: 'dwww', plan: '~5 min' },
+  { ch: 'Ch 7–8 Energy', pages: 68, s: 'dwww', plan: '~6 min' },
+  { ch: 'Ch 9 Momentum and Collisions', pages: 42, s: 'dwww', plan: '~7 min' },
+  { ch: 'Ch 10 Rotation', pages: 44, s: 'dwww', plan: '~8 min' },
+  { ch: 'Ch 11 Angular Momentum', pages: 26, s: 'dwww', plan: '~8 min' },
+  { ch: 'Ch 12 Equilibrium and Elasticity', pages: 26, s: 'dwww', plan: '~9 min' }
+];
+var CHAPTERS = [
+  { n: 1, w: 1, title: 'Physics and Measurement', total: 12, named: 12 },
+  { n: 2, w: 1, title: 'Motion in One Dimension', total: 17, named: 13 },
+  { n: 3, w: 2, title: 'Vectors', total: 9, named: 0, pend: '2 min' },
+  { n: 4, w: 3, title: 'Motion in Two Dimensions', total: 0, named: 0, pend: '4 min' },
+  { n: 5, w: 4, title: 'The Laws of Motion', total: 0, named: 0, pend: '4 min' },
+  { n: 6, w: 5, title: 'Circular Motion', total: 0, named: 0, pend: '5 min' },
+  { n: 7, w: 6, title: 'Energy of a System', total: 0, named: 0, pend: '6 min' },
+  { n: 8, w: 6, title: 'Conservation of Energy', total: 0, named: 0, pend: '6 min' },
+  { n: 9, w: 7, title: 'Momentum and Collisions', total: 0, named: 0, pend: '7 min' },
+  { n: 10, w: 8, title: 'Rotation of a Rigid Object', total: 0, named: 0, pend: '8 min' },
+  { n: 11, w: 9, title: 'Angular Momentum', total: 0, named: 0, pend: '8 min' },
+  { n: 12, w: 10, title: 'Static Equilibrium and Elasticity', total: 0, named: 0, pend: '9 min' }
+];
+var FOLDERS = ['week-01-measurement-and-motion', 'week-02-vectors', 'week-03-motion-in-2d', 'week-04-laws-of-motion', 'week-05-circular-motion', 'week-06-energy', 'week-07-momentum', 'week-08-rotation', 'week-09-angular-momentum', 'week-10-equilibrium'];
+var PICS = {
+  1: [['si-base-units-table.png', 'table', 'Table 1.1 · p. 5'], ['standard-kilogram-cylinder.png', 'photo', 'Fig 1.2 · p. 6'], ['powers-of-ten-length-scale.png', 'table', 'Table 1.2 · p. 7'], ['dimensional-analysis-example.png', 'diagram', 'Fig 1.4 · p. 11'], ['significant-figures-rules.png', 'table', 'Table 1.5 · p. 14'], ['vernier-caliper-reading.png', 'photo', 'Fig 1.6 · p. 16']],
+  2: [['car-on-number-line-displacement.png', 'diagram', 'Fig 2.1a · p. 26'], ['position-time-graph-car.png', 'graph', 'Fig 2.1b · p. 27'], ['instantaneous-velocity-tangent.png', 'graph', 'Fig 2.3 · p. 30'], ['velocity-time-graph-acceleration.png', 'graph', 'Fig 2.6 · p. 35'], ['free-fall-strobe-ball.png', 'photo', 'Fig 2.12 · p. 48', 'uncleared'], ['kinematic-equations-summary.png', 'table', 'Table 2.2 · p. 41'], ['graph-matching-x-v-a.png', 'graph', 'Fig 2.8 · p. 38', 'naming'], ['braking-distance-diagram.png', 'diagram', 'Fig 2.10 · p. 44', 'naming']],
+  3: [['vector-addition-tip-to-tail.png', 'diagram', 'Fig 3.6 · p. 66', 'naming'], ['vector-components-x-y.png', 'diagram', 'Fig 3.12 · p. 71', 'naming'], ['unit-vectors-ijk.png', 'diagram', 'Fig 3.13 · p. 72', 'naming']]
+};
+var FILTERS = [['all', 'All'], ['graph', 'Graphs'], ['table', 'Tables'], ['diagram', 'Diagrams'], ['photo', 'Photos'], ['flag', 'Needs attention']];
+function mmss(s) { var m = Math.floor(s / 60), r = s % 60; return m + ':' + (r < 10 ? '0' : '') + r; }
+function arrow(a, b) {
+  if (a === 'd' && b === 'r') return { color: '#2450C8', cls: 'flow' };
+  if (a === 'd' && b === 'x') return { color: '#B4570B', cls: '' };
+  return { color: '#DDE1E7', cls: '' };
+}
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { t: 402, page: 87, since: 1, sel: 1, filter: 'all', checked: { 0: true }, chatOpen: false }; }
+  componentDidMount() {
+    var s = this;
+    this._i = setInterval(function () { var st = s.state, bump = st.since >= 2; s.setState({ t: st.t + 1, page: bump ? Math.min(98, st.page + 1) : st.page, since: bump ? 0 : st.since + 1 }); }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this._i); }
+  renderVals() {
+    var s = this, st = this.state, pct = Math.min(99, 38 + Math.floor((st.t - 402) / 6));
+    var rows = WEEKS.map(function (w, i) {
+      var c = w.s.split(''), nx = WEEKS[i + 1] ? WEEKS[i + 1].s.split('') : null;
+      function cell(k) { var v = ST[k]; return { bg: v[0], fg: v[1], ch: v[2] }; }
+      return {
+        n: i + 1, chapters: w.ch, sessions: (i * 8 + 1) + '–' + (i * 8 + 8), pages: w.pages,
+        cut: cell(c[0]), md: cell(c[1]), pic: cell(c[2]), tag: cell(c[3]),
+        h1: arrow(c[0], c[1]), h2: arrow(c[2], c[3]),
+        v1: nx ? arrow(c[0], nx[0]) : arrow('w', 'w'), v2: nx ? arrow(c[1], nx[1]) : arrow('w', 'w'),
+        notLast: i < WEEKS.length - 1, plan: w.plan, planColor: w.plan === 'Ready now' ? '#1A6A3D' : w.plan === 'retrying' ? '#8A4308' : '#5A6170'
+      };
+    });
+    var tree = FOLDERS.map(function (f, wi) {
+      return {
+        folder: f + '\\', color: wi === 1 ? '#2450C8' : '#15181E',
+        chs: CHAPTERS.filter(function (c) { return c.w === wi + 1; }).map(function (c) {
+          var idx = CHAPTERS.indexOf(c), on = idx === st.sel, ok = !!st.checked[idx];
+          var badge = c.total === 0 ? 'pending' : c.named < c.total ? c.named + '/' + c.total + ' named' : (ok ? '✓ ' : '') + c.total + ' pictures';
+          return {
+            n: c.n, nn: (c.n < 10 ? '0' : '') + c.n, title: c.title, cur: String(on),
+            bg: on ? '#E8EEFC' : 'transparent', badge: badge,
+            badgeBg: c.total === 0 ? '#EDEFF3' : c.named < c.total ? '#E8EEFC' : '#E6F3EC', badgeFg: c.total === 0 ? '#4A5160' : c.named < c.total ? '#1A3C9A' : '#1A6A3D',
+            pick: function () { s.setState({ sel: idx, filter: 'all' }); }
+          };
+        })
+      };
+    });
+    var C = CHAPTERS[st.sel], list = PICS[C.n] || [];
+    var shown = list.filter(function (p) { return st.filter === 'all' ? true : st.filter === 'flag' ? (p[3] === 'uncleared') : p[1] === st.filter; });
+    var pics = shown.map(function (p) {
+      var naming = p[3] === 'naming', unc = p[3] === 'uncleared';
+      return {
+        name: p[0], naming: naming, op: naming ? '0.75' : '1',
+        isGraph: p[1] === 'graph', isTable: p[1] === 'table', isDiagram: p[1] === 'diagram', isPhoto: p[1] === 'photo',
+        note: unc ? 'Credited to another source · not cleared, so it won’t be shown in videos' : naming ? p[2] + ' · name is a first guess' : p[2],
+        noteColor: unc ? '#8A4308' : '#5A6170', noteWeight: unc ? '600' : '400'
+      };
+    });
+    var more = C.total > list.length ? ' · showing ' + list.length + ' of ' + C.total + ' in this mockup' : '';
+    var checkedCount = Object.keys(st.checked).filter(function (k) { return st.checked[k]; }).length;
+    return {
+      chatOpen: st.chatOpen, toggleChat: function () { s.setState({ chatOpen: !s.state.chatOpen }); },
+      elapsed: mmss(st.t), page: st.page, ago: st.since === 0 ? 'just now' : st.since + ' s ago', pct: pct, pctW: pct + '%',
+      rows: rows, tree: tree, pics: pics, checkedCount: checkedCount,
+      sel: {
+        n: C.n, title: C.title, path: FOLDERS[C.w - 1] + '\\pictures\\ch' + (C.n < 10 ? '0' : '') + C.n + '\\',
+        summary: C.total === 0 ? 'Not started yet' : C.named + ' of ' + C.total + ' named and tagged · pages ' + (C.n === 1 ? '2–24' : C.n === 2 ? '25–60' : '61–80') + more,
+        pending: C.total === 0, eta: C.pend || '', checked: !!st.checked[st.sel]
+      },
+      filters: FILTERS.map(function (f) { var on = st.filter === f[0]; return { label: f[1], on: String(on), bg: on ? '#2450C8' : '#FFFFFF', fg: on ? '#FFFFFF' : '#15181E', bd: on ? '#2450C8' : '#C9CFD8', pick: function () { s.setState({ filter: f[0] }); } }; }),
+      prevCh: function () { s.setState({ sel: Math.max(0, st.sel - 1), filter: 'all' }); },
+      nextCh: function () { s.setState({ sel: Math.min(CHAPTERS.length - 1, st.sel + 1), filter: 'all' }); },
+      toggleChecked: function () { var c = Object.assign({}, s.state.checked); c[s.state.sel] = !c[s.state.sel]; s.setState({ checked: c }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

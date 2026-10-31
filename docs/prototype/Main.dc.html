@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Projects</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.ib{min-width:36px;height:32px;border:0;border-radius:6px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#15181E;font:inherit;font-weight:500;padding:0 8px}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5A6170}
+h1{font-size:26px;font-weight:650;margin:0;letter-spacing:-.01em}
+h2{font-size:17px;font-weight:650;margin:0}
+table{border-collapse:collapse;width:100%}
+th{font-size:12px;font-weight:600;color:#5A6170;text-align:left;padding:10px 16px;border-bottom:1px solid #DDE1E7}
+td{padding:14px 16px;border-bottom:1px solid #EDEFF3;vertical-align:middle}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <strong>Course Studio</strong>
+    <span class="muted">/</span>
+    <span>Projects</span>
+    <span style="flex: 1"></span>
+    <a class="ib" href="Settings.dc.html" aria-label="Settings" style="text-decoration: none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg></a>
+    <button onClick="{{toggleChat}}" aria-label="Open chat" style="height: 32px; border: 0; border-radius: 6px; background: transparent; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; font: inherit; font-weight: 500; color: #15181E; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc">
+      <button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button>
+      <button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button>
+      <button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button>
+    </div>
+  </header>
+
+  <main style="flex: 1; width: 100%; max-width: 1280px; margin: 0 auto; box-sizing: border-box; padding: 40px; display: flex; flex-direction: column; gap: 28px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px">
+      <div style="flex: 1 1 400px; display: flex; flex-direction: column; gap: 6px">
+        <span class="eyebrow">This PC</span>
+        <h1>Course projects</h1>
+        <p class="muted" style="margin: 0">Each project is one textbook, kept in its own folder on this PC and published into your existing Canvas course.</p>
+      </div>
+      <div style="position: relative">
+        <button class="btn btn-p" aria-expanded="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+          Create Course
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
+        <div class="card" role="menu" style="position: absolute; right: 0; top: 52px; width: 340px; padding: 6px; box-shadow: 0 12px 32px rgba(21,24,30,.14); z-index: 2; display: flex; flex-direction: column; gap: 2px">
+          <a href="Upload.dc.html" role="menuitem" style="display: flex; gap: 12px; padding: 12px; border-radius: 8px; background: #E8EEFC; color: #15181E; text-decoration: none">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2450C8" stroke-width="1.8" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"></path><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"></path></svg>
+            <span style="display: flex; flex-direction: column; gap: 2px"><strong>Create using textbook</strong><span class="muted" style="font-size: 13px">Upload one PDF. It becomes a new project on this PC.</span></span>
+          </a>
+          <div role="menuitem" aria-disabled="true" style="display: flex; gap: 12px; padding: 12px; border-radius: 8px; color: #5A6170">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span style="display: flex; flex-direction: column; gap: 2px"><strong>Create using prompt</strong><span style="font-size: 13px">Not in this version</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 16px">
+      <div class="card" style="flex: 1 1 300px; padding: 18px 20px; display: flex; align-items: center; gap: 14px">
+        <span style="width: 10px; height: 10px; border-radius: 50%; background: #1E7A46"></span>
+        <div style="display: flex; flex-direction: column"><strong>Canvas connected</strong><span class="muted" style="font-size: 13px">Course ID <span class="mono">[COURSE ID]</span> · [COURSE NAME]</span></div>
+      </div>
+      <div class="card" style="flex: 1 1 300px; padding: 18px 20px; display: flex; align-items: center; gap: 14px">
+        <span style="width: 10px; height: 10px; border-radius: 50%; background: #1E7A46"></span>
+        <div style="display: flex; flex-direction: column"><strong>Model + Napkin keys set</strong><span class="muted" style="font-size: 13px">Language work calls the model API</span></div>
+      </div>
+      <div class="card" style="flex: 1 1 300px; padding: 18px 20px; display: flex; align-items: center; gap: 14px">
+        <span style="width: 10px; height: 10px; border-radius: 50%; background: #B4570B"></span>
+        <div style="display: flex; flex-direction: column"><strong>ElevenLabs key not set</strong><span class="muted" style="font-size: 13px">Only needed for lectures · <a href="Settings.dc.html">Settings</a></span></div>
+      </div>
+    </div>
+
+    <div class="card" style="overflow-x: auto">
+      <table>
+        <thead><tr><th>Project</th><th>Textbook</th><th>Modules</th><th>Where it is</th><th>Last change</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><a href="Preview.dc.html" style="font-weight: 600; color: #15181E">Physics for Scientists &amp; Engineers</a><div class="mono muted">Documents\Course Studio\physics\</div></td>
+            <td class="mono">physics-textbook.pdf</td><td>6</td>
+            <td><span class="chip" style="background: #E8EEFC; color: #1A3C9A">Text · Module 1 of 6</span></td>
+            <td class="muted">Chat edit, 4 min ago</td>
+          </tr>
+          <tr>
+            <td><span style="font-weight: 600">GOB Chemistry</span><div class="mono muted">Documents\Course Studio\gob-chem\</div></td>
+            <td class="mono">gob-chemistry.pdf</td><td>8</td>
+            <td><span class="chip" style="background: #FDF1E4; color: #8A4308">Canvas · 2 items to republish</span></td>
+            <td class="muted">Yesterday</td>
+          </tr>
+          <tr>
+            <td><span style="font-weight: 600">Public Speaking</span><div class="mono muted">Documents\Course Studio\public-speaking\</div></td>
+            <td class="mono">public-speaking.pdf</td><td>5</td>
+            <td><span class="chip" style="background: #E6F3EC; color: #1A6A3D">Lectures · 4 of 18 rendered</span></td>
+            <td class="muted">Oct 24</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Projects" prompts="Start a new project from my GOB Chemistry PDF|Which project has items waiting to republish?" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { var c = this, st = this.state || {}; return { chatOpen: !!st.chatOpen, toggleChat: function () { c.setState({ chatOpen: !((c.state || {}).chatOpen) }); } }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Text preview and chat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.ib{min-width:36px;height:32px;border:0;border-radius:6px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#15181E;font:inherit;font-weight:500;padding:0 10px;text-decoration:none}
+.rail{background:#FFFFFF;border-bottom:1px solid #DDE1E7;padding:0 32px}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+.rail li{display:flex;align-items:center;gap:8px;padding:12px 12px 10px;font-size:13px;color:#5A6170;border-bottom:2px solid transparent}
+.rail .n{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:600;border:1px solid #C9CFD8;box-sizing:border-box}
+.rail li.done .n{background:#E8EEFC;border-color:#E8EEFC;color:#2450C8}
+.rail li.cur{color:#15181E;font-weight:600;border-bottom-color:#2450C8}
+.rail li.cur .n{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.rail a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}.rail a:hover{color:#2450C8}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5A6170}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.items a{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;color:#15181E;text-decoration:none;font-size:13px}
+.items a[aria-current="true"]{background:#E8EEFC;font-weight:600}
+.k{font-size:11px;font-weight:700;color:#5A6170;width:22px}
+.prose{font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.65;color:#15181E}
+.prose h1{font-family:'Instrument Sans',system-ui,sans-serif;font-size:28px;line-height:1.2;margin:0 0 6px}
+.prose h2{font-family:'Instrument Sans',system-ui,sans-serif;font-size:19px;margin:28px 0 8px}
+.prose p{margin:0 0 14px}
+.cite{font-family:'Instrument Sans',system-ui,sans-serif;display:inline-flex;align-items:center;height:22px;padding:0 7px;margin:0 2px;border-radius:5px;background:#FDF1E4;color:#8A4308;font-size:12px;font-weight:700;border:0;vertical-align:1px}
+.cite[aria-expanded="true"]{background:#B4570B;color:#FFFFFF}
+.tabs{display:flex;gap:4px;border-bottom:1px solid #DDE1E7}
+.tabs button{font:inherit;font-weight:600;min-height:40px;padding:0 14px;border:0;background:transparent;color:#5A6170;border-bottom:2px solid transparent}
+.tabs button[aria-selected="true"]{color:#15181E;border-bottom-color:#2450C8}
+.bub{max-width:88%;padding:10px 12px;border-radius:12px;font-size:13.5px}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><span>Physics for Scientists &amp; Engineers</span>
+    <span style="flex: 1"></span>
+    <button class="ib" aria-label="Show or hide chat" onClick="{{toggleChat}}" aria-pressed="{{chatPressed}}" style="background: {{chatBtnBg}}; color: {{chatBtnFg}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc">
+      <button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button>
+      <button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button>
+      <button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button>
+    </div>
+  </header>
+  <nav class="rail" aria-label="Steps"><ol>
+    <li class="done"><a href="Upload.dc.html"><span class="n">✓</span>Textbook</a></li><li class="done"><a href="Chapters.dc.html"><span class="n">✓</span>Chapters</a></li><li class="done"><a href="ModuleSetup.dc.html"><span class="n">✓</span>Schedule</a></li><li class="done"><a href="ModuleSplit.dc.html"><span class="n">✓</span>Modules</a></li><li class="done"><a href="Folders.dc.html"><span class="n">✓</span>Files &amp; pictures</a></li><li class="done"><a href="Lessons.dc.html"><span class="n">✓</span>Lessons</a></li><li class="cur"><a href="Preview.dc.html"><span class="n">7</span>Text</a></li><li><a href="Canvas.dc.html"><span class="n">8</span>Canvas</a></li><li><a href="Lectures.dc.html"><span class="n">9</span>Lectures</a></li>
+  </ol></nav>
+
+  <div style="flex: 1; display: flex; flex-wrap: nowrap; align-items: stretch; min-height: 0">
+    <nav class="items" aria-label="Course outline" style="flex: 0 0 300px; background: #FFFFFF; border-right: 1px solid #DDE1E7; padding: 14px 12px; display: flex; flex-direction: column; gap: 6px; box-sizing: border-box; font-size: 13px">
+      <div style="display: flex; align-items: baseline; padding: 0 4px 4px"><span class="eyebrow" style="flex: 1">Course · 10 weeks</span><span class="muted" style="font-size: 12px">text 1 of 10 weeks</span></div>
+
+      <div style="border: 1px solid #C7D4F5; border-radius: 10px; overflow: hidden">
+        <div style="padding: 10px 12px; background: #E8EEFC; display: flex; flex-direction: column; gap: 6px">
+          <strong style="font-size: 14px">Week 1 · Measurement &amp; 1D Motion</strong>
+          <span class="muted" style="font-size: 12px">Ch 1–2 · Sessions 1–8 · 4 topics</span>
+          <div style="display: flex; justify-content: space-between; font-size: 12px"><span>Pictures tagged</span><strong>24 of 29</strong></div>
+          <div style="height: 6px; border-radius: 3px; background: #FFFFFF"><div style="width: 83%; height: 6px; border-radius: 3px; background: #B4570B"></div></div>
+        </div>
+        <div style="padding: 6px; display: flex; flex-direction: column; gap: 1px">
+          <span class="muted" style="font-size: 11.5px; font-weight: 600; padding: 4px 8px 2px">TOPIC 1 · Units, standards and the SI system</span>
+          <a href="#" aria-current="true"><span class="k">RD</span><span style="flex: 1">Reading</span><span style="font-size: 11.5px; color: #8A4308; font-weight: 600">reviewing</span></a>
+          <a href="#"><span class="k">VD</span><span style="flex: 1">Lecture · 10 min</span><span class="muted" style="font-size: 11.5px">blank for now</span></a>
+          <span class="muted" style="font-size: 11.5px; font-weight: 600; padding: 6px 8px 2px">TOPIC 2 · Dimensional analysis</span>
+          <a href="#"><span class="k">RD</span><span style="flex: 1">Reading</span><span style="font-size: 11.5px; color: #1A6A3D; font-weight: 600">accepted</span></a>
+          <span class="muted" style="font-size: 11.5px; font-weight: 600; padding: 6px 8px 2px">TOPIC 3 · Position, velocity and speed</span>
+          <a href="#"><span class="k">RD</span><span style="flex: 1">Reading</span><span style="font-size: 11.5px; color: #2450C8; font-weight: 600">writing…</span></a>
+          <span class="muted" style="font-size: 11.5px; font-weight: 600; padding: 6px 8px 2px">TOPIC 4 · Acceleration and free fall</span>
+          <a href="#"><span class="k">RD</span><span style="flex: 1">Reading</span><span class="muted" style="font-size: 11.5px">queued</span></a>
+          <span class="muted" style="font-size: 11.5px; font-weight: 600; padding: 6px 8px 2px">WHOLE WEEK</span>
+          <a href="#"><span class="k">SL</span><span style="flex: 1">Week 1 recap slideshow</span><span class="muted" style="font-size: 11.5px">queued</span></a>
+          <a href="#"><span class="k">AS</span><span style="flex: 1">Week 1 problem set</span><span class="muted" style="font-size: 11.5px">queued</span></a>
+          <a href="#"><span class="k">QZ</span><span style="flex: 1">Unit conversion quiz</span><span class="muted" style="font-size: 11.5px">queued</span></a>
+        </div>
+      </div>
+
+      <a href="#" style="flex-direction: column; align-items: stretch; gap: 4px; border: 1px solid #DDE1E7"><span style="display: flex"><strong style="flex: 1">Week 2 · Vectors</strong><span class="muted" style="font-size: 11.5px">not started</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 11.5px" class="muted">pictures <span style="flex: 1; height: 4px; border-radius: 2px; background: #EDEFF3"><span style="display: block; width: 100%; height: 4px; border-radius: 2px; background: #1E7A46"></span></span> 100%</span></a>
+      <a href="#" style="flex-direction: column; align-items: stretch; gap: 4px; border: 1px solid #DDE1E7"><span style="display: flex"><strong style="flex: 1">Week 3 · Motion in 2D</strong><span class="muted" style="font-size: 11.5px">not started</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 11.5px" class="muted">pictures <span style="flex: 1; height: 4px; border-radius: 2px; background: #EDEFF3"><span style="display: block; width: 46%; height: 4px; border-radius: 2px; background: #B4570B"></span></span> 46%</span></a>
+      <a href="#" style="flex-direction: column; align-items: stretch; gap: 4px; border: 1px solid #DDE1E7"><span style="display: flex"><strong style="flex: 1">Week 4 · Laws of Motion</strong><span class="muted" style="font-size: 11.5px">not started</span></span><span style="display: flex; align-items: center; gap: 8px; font-size: 11.5px" class="muted">pictures <span style="flex: 1; height: 4px; border-radius: 2px; background: #EDEFF3"><span style="display: block; width: 12%; height: 4px; border-radius: 2px; background: #B4570B"></span></span> 12%</span></a>
+      <a href="#" style="border: 1px solid #DDE1E7"><span style="flex: 1"><strong>Weeks 5–10</strong></span><span class="muted" style="font-size: 11.5px">pictures queued</span></a>
+    </nav>
+
+    <main style="flex: 1 1 auto; min-width: 0; padding: 20px 32px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13.5px">
+        <span class="muted">Week 1 of 10</span><span class="muted">›</span><span>Measurement &amp; 1D Motion</span><span class="muted">›</span><span>Topic 1 of 4: Units, standards and the SI system</span><span class="muted">›</span><strong>Reading</strong>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; background: #FDF1E4; color: #6E3606; font-size: 13px">
+        <strong>Pictures for Week 1: 24 of 29 tagged.</strong><span>This reading uses 3; 1 is still processing and shows as a placeholder until it’s ready. It fills in on its own.</span>
+      </div>
+      <div class="tabs" role="tablist"><button role="tab" aria-selected="true">Reading</button><button role="tab" aria-selected="false">Markdown</button><span style="flex: 1"></span><span class="mono muted" style="align-self: center">week-01\readings\01-units-standards-si.md</span></div>
+      <article class="prose" style="background: #FFFFFF; border: 1px solid #DDE1E7; border-radius: 12px; padding: 32px 40px; max-width: 760px; position: relative">
+        <h1>Units, Standards, and the SI System</h1>
+        <p class="muted" style="font-family: 'Instrument Sans', sans-serif; font-size: 13px; margin-bottom: 20px">Week 1 · Topic 1 · Reading · about 12 min</p>
+        <p>Every measurement in physics is a number paired with a unit. To compare results across labs and countries, scientists agreed on one set of standards: the International System of Units, or SI <button class="cite" aria-expanded="false">p. 4</button>.</p>
+        <p>The SI defines seven base units. Mechanics needs only three of them: the meter for length, the kilogram for mass, and the second for time <button class="cite" aria-expanded="true">p. 5</button>.</p>
+        <div style="position: absolute; left: 380px; top: 236px; width: 300px; background: #FFFFFF; border: 1px solid #DDE1E7; border-radius: 10px; box-shadow: 0 12px 28px rgba(21,24,30,.16); padding: 12px; font-family: 'Instrument Sans', sans-serif; font-size: 13px; line-height: 1.4; z-index: 2">
+          <strong>Textbook p. 5</strong>
+          <div style="margin: 8px 0; padding: 8px 10px; background: #FDF1E4; border-radius: 6px; color: #6E3606">“…the SI base units of length, mass, and time are the meter, kilogram, and second…”</div>
+          <a href="#">Open page 5 in the book</a>
+        </div>
+        <figure style="margin: 18px 0; padding: 12px 14px 14px; background: {{t.bg}}; border: 2px {{t.bstyle}} {{t.border}}; border-radius: 10px; font-family: 'Instrument Sans', sans-serif; display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px"><span style="font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #6B3FA0; color: #FFFFFF">Recommended asset</span><span style="font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #EEF0F4; color: #4A5160">From picture bank</span><span style="flex: 1"></span><span style="font-weight: 600; color: {{t.scolor}}">{{t.status}}</span></div>
+          <sc-if value="{{t.show}}" hint-placeholder-val="{{ true }}"><div style="height: 120px; background: #FFFFFF; border-radius: 6px; display: grid; place-items: center"><svg width="240" height="90" viewBox="0 0 240 90" aria-hidden="true"><rect x="10" y="8" width="220" height="74" fill="none" stroke="#5A6170" stroke-width="2"></rect><path d="M10 26h220M10 44h220M10 62h220M100 8v74" stroke="#5A6170" stroke-width="1.2"></path></svg></div></sc-if>
+          <sc-if value="{{t.rejected}}" hint-placeholder-val="{{ false }}"><div style="padding: 10px; border-radius: 8px; background: #FFFFFF; border: 1px solid #DDE1E7; display: flex; flex-direction: column; gap: 8px; font-size: 13px"><strong>Replace it</strong><span class="muted">Pick another picture from Ch 1, or describe the graphic you want.</span><div style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{t.options}}" as="o" hint-placeholder-count="3"><button onClick="{{o.pick}}" class="mono" style="font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #C9CFD8; background: #F4F5F7; cursor: pointer">{{o.name}}</button></sc-for></div><button onClick="{{t.ask}}" style="align-self: flex-start; font: inherit; font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 6px; border: 1px solid #2450C8; background: #FFFFFF; color: #2450C8; cursor: pointer">Describe it in chat</button></div></sc-if>
+          <figcaption style="font-size: 13px" class="muted">{{t.caption}}</figcaption>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap"><button onClick="{{t.keep}}" aria-pressed="{{t.keptStr}}" style="font: inherit; font-size: 13px; font-weight: 600; min-height: 34px; padding: 0 12px; border-radius: 8px; cursor: pointer; border: 1px solid {{t.keepBd}}; background: {{t.keepBg}}; color: {{t.keepFg}}">✓ Correct, keep it</button><button onClick="{{t.reject}}" aria-pressed="{{t.rejStr}}" style="font: inherit; font-size: 13px; font-weight: 600; min-height: 34px; padding: 0 12px; border-radius: 8px; cursor: pointer; border: 1px solid {{t.rejBd}}; background: {{t.rejBg}}; color: {{t.rejFg}}">✗ Wrong, replace it</button></div>
+        </figure>
+        <figure style="margin: 18px 0; padding: 12px 14px 14px; background: {{k.bg}}; border: 2px {{k.bstyle}} {{k.border}}; border-radius: 10px; font-family: 'Instrument Sans', sans-serif; display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px"><span style="font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #6B3FA0; color: #FFFFFF">Recommended asset</span><span style="font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #EEF0F4; color: #4A5160">From picture bank</span><span style="flex: 1"></span><span style="font-weight: 600; color: {{k.scolor}}">{{k.status}}</span></div>
+          <sc-if value="{{k.show}}" hint-placeholder-val="{{ true }}"><div style="height: 120px; background: #FFFFFF; border-radius: 6px; display: grid; place-items: center"><svg width="120" height="100" viewBox="0 0 120 100" aria-hidden="true"><ellipse cx="60" cy="24" rx="26" ry="8" fill="none" stroke="#5A6170" stroke-width="2"></ellipse><path d="M34 24v52M86 24v52" stroke="#5A6170" stroke-width="2"></path><ellipse cx="60" cy="76" rx="26" ry="8" fill="none" stroke="#5A6170" stroke-width="2"></ellipse></svg></div></sc-if>
+          <sc-if value="{{k.rejected}}" hint-placeholder-val="{{ false }}"><div style="padding: 10px; border-radius: 8px; background: #FFFFFF; border: 1px solid #DDE1E7; display: flex; flex-direction: column; gap: 8px; font-size: 13px"><strong>Replace it</strong><span class="muted">Pick another picture from Ch 1, or describe the graphic you want.</span><div style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{k.options}}" as="o" hint-placeholder-count="3"><button onClick="{{o.pick}}" class="mono" style="font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #C9CFD8; background: #F4F5F7; cursor: pointer">{{o.name}}</button></sc-for></div><button onClick="{{k.ask}}" style="align-self: flex-start; font: inherit; font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 6px; border: 1px solid #2450C8; background: #FFFFFF; color: #2450C8; cursor: pointer">Describe it in chat</button></div></sc-if>
+          <figcaption style="font-size: 13px" class="muted">{{k.caption}}</figcaption>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap"><button onClick="{{k.keep}}" aria-pressed="{{k.keptStr}}" style="font: inherit; font-size: 13px; font-weight: 600; min-height: 34px; padding: 0 12px; border-radius: 8px; cursor: pointer; border: 1px solid {{k.keepBd}}; background: {{k.keepBg}}; color: {{k.keepFg}}">✓ Correct, keep it</button><button onClick="{{k.reject}}" aria-pressed="{{k.rejStr}}" style="font: inherit; font-size: 13px; font-weight: 600; min-height: 34px; padding: 0 12px; border-radius: 8px; cursor: pointer; border: 1px solid {{k.rejBd}}; background: {{k.rejBg}}; color: {{k.rejFg}}">✗ Wrong, replace it</button></div>
+        </figure>
+        <h2>Converting between units</h2>
+        <p>Units can be treated like algebraic quantities that cancel. Multiply by a conversion factor equal to one, such as 1 in. = 2.54 cm, to change units without changing the quantity <button class="cite">p. 10</button>.</p>
+        <figure style="margin: 18px 0; padding: 14px; background: #FDF6EE; border: 1px dashed #D9A066; border-radius: 10px; font-family: 'Instrument Sans', sans-serif">
+          <div style="height: 90px; border-radius: 6px; display: grid; place-items: center; color: #8A4308; font-size: 13px; font-weight: 600">Picture still processing</div>
+          <figcaption style="font-size: 13px; color: #6E3606">Fig 1.4 · p. 11 · it drops in here by file name once it’s tagged</figcaption>
+        </figure>
+        <figure style="margin: 18px 0; padding: 12px 14px 14px; background: {{n.bg}}; border: 2px {{n.bstyle}} {{n.border}}; border-radius: 10px; font-family: 'Instrument Sans', sans-serif; display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px"><span style="font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #6B3FA0; color: #FFFFFF">Recommended asset</span><span style="font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #EEF0F4; color: #4A5160">Napkin diagram · not from the book</span><span style="flex: 1"></span><span style="font-weight: 600; color: {{n.scolor}}">{{n.status}}</span></div>
+          <sc-if value="{{n.show}}" hint-placeholder-val="{{ true }}"><div style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 0; font-weight: 600; background: #FFFFFF; border-radius: 6px"><span style="padding: 8px 12px; border-radius: 8px; background: #E8EEFC">Quantity</span><span aria-hidden="true">→</span><span style="padding: 8px 12px; border-radius: 8px; background: #E8EEFC">× factor = 1</span><span aria-hidden="true">→</span><span style="padding: 8px 12px; border-radius: 8px; background: #E8EEFC">New units</span></div></sc-if>
+          <sc-if value="{{n.rejected}}" hint-placeholder-val="{{ false }}"><div style="padding: 10px; border-radius: 8px; background: #FFFFFF; border: 1px solid #DDE1E7; display: flex; flex-direction: column; gap: 8px; font-size: 13px"><strong>Replace it</strong><span class="muted">Use a picture from Ch 1 instead, try Napkin again, or describe the graphic you want.</span><div style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{n.options}}" as="o" hint-placeholder-count="3"><button onClick="{{o.pick}}" class="mono" style="font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #C9CFD8; background: #F4F5F7; cursor: pointer">{{o.name}}</button></sc-for></div><button onClick="{{n.ask}}" style="align-self: flex-start; font: inherit; font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 6px; border: 1px solid #2450C8; background: #FFFFFF; color: #2450C8; cursor: pointer">Describe it in chat</button></div></sc-if>
+          <figcaption style="font-size: 13px" class="muted">{{n.caption}}</figcaption>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap"><button onClick="{{n.keep}}" aria-pressed="{{n.keptStr}}" style="font: inherit; font-size: 13px; font-weight: 600; min-height: 34px; padding: 0 12px; border-radius: 8px; cursor: pointer; border: 1px solid {{n.keepBd}}; background: {{n.keepBg}}; color: {{n.keepFg}}">✓ Correct, keep it</button><button onClick="{{n.reject}}" aria-pressed="{{n.rejStr}}" style="font: inherit; font-size: 13px; font-weight: 600; min-height: 34px; padding: 0 12px; border-radius: 8px; cursor: pointer; border: 1px solid {{n.rejBd}}; background: {{n.rejBg}}; color: {{n.rejFg}}">✗ Wrong, replace it</button></div>
+        </figure>
+      </article>
+    </main>
+
+    <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ true }}">
+    <aside aria-label="Chat" style="flex: 0 0 380px; background: #FFFFFF; border-left: 1px solid #DDE1E7; display: flex; flex-direction: column; box-sizing: border-box">
+      <div style="padding: 12px 16px; border-bottom: 1px solid #DDE1E7; display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; align-items: center"><strong style="flex: 1">Chat</strong><button class="ib" aria-label="Close chat" onClick="{{toggleChat}}">×</button></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px">
+          <span style="padding: 3px 8px; border-radius: 999px; background: #E6F3EC; color: #1A6A3D; font-weight: 600">Can edit project files</span>
+          <label style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 999px; background: #F4F5F7; font-weight: 600"><input type="checkbox" style="margin: 0"> Let my next message publish to Canvas</label>
+        </div>
+      </div>
+      <div style="flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow: auto">
+        <div class="bub" style="align-self: flex-end; background: #E8EEFC">
+          <div style="height: 80px; width: 200px; border-radius: 6px; background: #FFFFFF; border: 1px solid #C9CFD8; margin-bottom: 8px; display: grid; place-items: center; font-size: 11px" class="muted">pasted screenshot</div>
+          The table crop is missing its last rows. Recrop it from the book.
+        </div>
+        <div class="bub" style="background: #F4F5F7">
+          Recropped <span class="mono">si-base-units-table.png</span> from p. 5 so all seven base units show. The reading already points at that file name, so nothing else changed.
+          <div style="margin-top: 10px; padding: 8px 10px; background: #FFFFFF; border: 1px solid #DDE1E7; border-radius: 8px; display: flex; flex-direction: column; gap: 6px">
+            <span class="mono" style="font-size: 11.5px">M module-01\pictures\si-base-units-table.png</span>
+            <div style="display: flex; gap: 8px"><button class="ib" style="border: 1px solid #C9CFD8; height: 30px; font-size: 12.5px">Undo this turn</button><span class="muted" style="font-size: 12px; align-self: center">Saved as a step · preview reloaded</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="padding: 12px 16px; border-top: 1px solid #DDE1E7; display: flex; flex-direction: column; gap: 8px">
+        <label for="msg" style="position: absolute; left: -9999px">Message</label>
+        <textarea id="msg" rows="3" placeholder="Ask, or paste a screenshot (Ctrl+V)" style="font: inherit; resize: none; border: 1px solid #C9CFD8; border-radius: 10px; padding: 10px 12px; color: #15181E"></textarea>
+        <div style="display: flex; align-items: center; gap: 8px"><button class="ib" aria-label="Attach image"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="M21 15l-5-5L5 21"></path></svg></button><span style="flex: 1"></span><button class="btn btn-p" style="min-height: 36px">Send</button></div>
+      </div>
+    </aside>
+    </sc-if>
+  </div>
+  <footer class="foot">
+    <a class="btn" href="Lessons.dc.html">Back to plan</a>
+    <button class="btn">Regenerate this reading</button>
+    <span style="flex: 1"></span>
+    <span class="muted" style="font-size: 13px">3 citations checked of 4</span>
+    <span style="font-size: 13px; font-weight: 600; color: #6B3FA0">{{assetsDone}} of 3 recommended assets checked</span>
+    <sc-if value="{{allChecked}}" hint-placeholder-val="{{ false }}"><a class="btn btn-p" href="Canvas.dc.html">Accept this reading</a></sc-if>
+    <sc-if value="{{notAll}}" hint-placeholder-val="{{ true }}"><button class="btn" disabled style="background: #E3E6EB; border-color: #E3E6EB; color: #5A6170">Check {{assetsLeft}} more asset(s) to accept</button></sc-if>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { chatClosed: false, a: { t: 'pending', k: 'pending', n: 'pending' }, names: {} }; }
+  renderVals() {
+    var c = this, st = this.state, open = !st.chatClosed;
+    var DEF = {
+      t: { name: 'si-base-units-table.png', cap: 'Table 1.1 · p. 5 · matched by caption and page', opts: ['powers-of-ten-length-scale.png', 'significant-figures-rules.png', 'vernier-caliper-reading.png'] },
+      k: { name: 'standard-kilogram-cylinder.png', cap: 'Fig 1.2 · p. 6 · matched only by the word “kilogram”, so check it fits here', opts: ['si-base-units-table.png', 'powers-of-ten-length-scale.png', 'vernier-caliper-reading.png'] },
+      n: { name: 'diagram-unit-conversion-flow.svg', cap: 'Drawn by Napkin from the paragraph above · saved next to this reading', opts: ['Try Napkin again', 'dimensional-analysis-example.png', 'powers-of-ten-length-scale.png'] }
+    };
+    function set(id, v, name) { var a = Object.assign({}, c.state.a), nm = Object.assign({}, c.state.names); a[id] = v; if (name) nm[id] = name; c.setState({ a: a, names: nm }); }
+    function asset(id) {
+      var s = st.a[id], d = DEF[id], name = st.names[id] || d.name;
+      var kept = s === 'kept' || s === 'replaced', rej = s === 'rejected';
+      return {
+        status: s === 'pending' ? 'Not checked yet' : s === 'kept' ? 'Checked · kept' : s === 'replaced' ? 'Replaced by you' : 'Marked wrong · not used',
+        scolor: s === 'pending' ? '#6B3FA0' : kept ? '#1A6A3D' : '#9F1239',
+        bg: s === 'pending' ? '#F7F3FC' : kept ? '#F1F8F4' : '#FDF2F4', border: s === 'pending' ? '#B9A0DA' : kept ? '#8CC7A4' : '#E9A3B5', bstyle: s === 'pending' ? 'dashed' : 'solid',
+        show: !rej, rejected: rej,
+        caption: (s === 'replaced' ? name + ' · picked by you' : name + ' · ' + d.cap),
+        keptStr: String(kept), rejStr: String(rej),
+        keepBg: kept ? '#1E7A46' : '#FFFFFF', keepFg: kept ? '#FFFFFF' : '#1A6A3D', keepBd: '#1E7A46',
+        rejBg: rej ? '#9F1239' : '#FFFFFF', rejFg: rej ? '#FFFFFF' : '#9F1239', rejBd: '#9F1239',
+        keep: function () { set(id, 'kept'); }, reject: function () { set(id, 'rejected'); },
+        ask: function () { c.setState({ chatClosed: false }); },
+        options: d.opts.map(function (o) { return { name: o, pick: function () { set(id, 'replaced', o); } }; })
+      };
+    }
+    var done = ['t', 'k', 'n'].filter(function (k) { return st.a[k] !== 'pending'; }).length;
+    return {
+      chatOpen: open, chatPressed: String(open), chatBtnBg: open ? '#E8EEFC' : 'transparent', chatBtnFg: open ? '#1A3C9A' : '#15181E',
+      toggleChat: function () { c.setState({ chatClosed: !c.state.chatClosed }); },
+      t: asset('t'), k: asset('k'), n: asset('n'),
+      assetsDone: done, allChecked: done === 3, notAll: done < 3, assetsLeft: 3 - done
+    };
+  }
+}
+</script>
+</body>
+</html>

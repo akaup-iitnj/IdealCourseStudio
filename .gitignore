@@ -1,0 +1,30 @@
+node_modules/
+out/
+dist/
+release/
+.vite/
+coverage/
+playwright-report/
+test-results/
+*.log
+
+# Python
+python/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets and private material
+.env
+.env.*
+tests/fixtures/private/
+spikes/**/output/
+
+# Reference repos and big binaries
+ref/
+models/
+*.mp4
+*.wav
+
+.DS_Store
+Thumbs.db

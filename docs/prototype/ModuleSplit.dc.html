@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module split</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.ib{min-width:36px;height:32px;border:0;border-radius:6px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#15181E;font:inherit;font-weight:500;padding:0 10px;text-decoration:none}
+.rail{background:#FFFFFF;border-bottom:1px solid #DDE1E7;padding:0 32px}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+.rail li{display:flex;align-items:center;gap:8px;padding:12px 12px 10px;font-size:13px;color:#5A6170;border-bottom:2px solid transparent}
+.rail .n{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:600;border:1px solid #C9CFD8;box-sizing:border-box}
+.rail li.done .n{background:#E8EEFC;border-color:#E8EEFC;color:#2450C8}
+.rail li.cur{color:#15181E;font-weight:600;border-bottom-color:#2450C8}
+.rail li.cur .n{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.rail a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}.rail a:hover{color:#2450C8}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5A6170}
+h1{font-size:26px;font-weight:650;margin:0;letter-spacing:-.01em}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+@keyframes fromleft{0%{opacity:0;transform:translateX(-140%)}100%{opacity:1;transform:none}}
+.fly{animation:fromleft .7s cubic-bezier(.2,.8,.2,1) both}
+.chip{cursor:grab}
+.chip:active{cursor:grabbing}
+.mv{width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:#5A6170;display:grid;place-items:center;padding:0}
+.mv:hover{background:#EDEFF3;color:#15181E}
+.cell{flex:1;height:22px;border-radius:3px}
+@media (prefers-reduced-motion: reduce){.fly{animation:none}}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><span>Physics for Scientists &amp; Engineers</span>
+    <span style="flex: 1"></span>
+    <button class="ib" aria-label="Open chat" onClick="{{toggleChat}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc">
+      <button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button>
+      <button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button>
+      <button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button>
+    </div>
+  </header>
+  <nav class="rail" aria-label="Steps"><ol>
+    <li class="done"><a href="Upload.dc.html"><span class="n">✓</span>Textbook</a></li><li class="done"><a href="Chapters.dc.html"><span class="n">✓</span>Chapters</a></li><li class="done"><a href="ModuleSetup.dc.html"><span class="n">✓</span>Schedule</a></li><li class="cur"><a href="ModuleSplit.dc.html"><span class="n">4</span>Modules</a></li><li><a href="Folders.dc.html"><span class="n">5</span>Files &amp; pictures</a></li><li><a href="Lessons.dc.html"><span class="n">6</span>Lessons</a></li><li><a href="Preview.dc.html"><span class="n">7</span>Text</a></li><li><a href="Canvas.dc.html"><span class="n">8</span>Canvas</a></li><li><a href="Lectures.dc.html"><span class="n">9</span>Lectures</a></li>
+  </ol></nav>
+
+  <main style="flex: 1; width: 100%; max-width: 1400px; margin: 0 auto; box-sizing: border-box; padding: 24px 32px; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px">
+      <div style="flex: 1 1 500px; display: flex; flex-direction: column; gap: 6px">
+        <span class="eyebrow">10 weeks · 4 days · 2 sessions a day · 2.5 h sessions · 80 sessions</span>
+        <h1>Drag chapters between modules</h1>
+        <p class="muted" style="margin: 0">The model weighed how dense each chapter is. Sessions inside a module are shared out by that weight.</p>
+      </div>
+      <button class="btn" onClick="{{reset}}">Reset to proposal</button>
+    </div>
+
+    <section aria-label="Session map" style="background: #FFFFFF; border: 1px solid #DDE1E7; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px">
+      <div style="display: flex; justify-content: space-between; font-size: 12px" class="muted"><strong style="color: #15181E">Session map</strong><span>Each square is one 2.5 h session · colour = chapter</span></div>
+      <div style="display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{weeks}}" as="wk" hint-placeholder-count="10">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <div style="display: flex; gap: 2px">
+              <sc-for list="{{wk.cells}}" as="c" hint-placeholder-count="8">
+                <span class="cell" title="{{c.label}}" style="background: {{c.color}}"></span>
+              </sc-for>
+            </div>
+            <span class="muted" style="font-size: 11.5px; text-align: center">Week {{wk.n}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; flex: 1; align-items: start">
+      <sc-for list="{{modules}}" as="m" hint-placeholder-count="10">
+        <section class="fly" onDragOver="{{m.over}}" onDrop="{{m.drop}}" style="animation-delay: {{m.delay}}; background: {{m.bg}}; border: 2px {{m.borderStyle}} {{m.border}}; border-radius: 12px; padding: 10px; min-height: 180px; display: flex; flex-direction: column; gap: 8px; box-sizing: border-box">
+          <div style="display: flex; flex-direction: column; gap: 1px; padding: 2px 4px 4px">
+            <div style="display: flex; align-items: baseline; gap: 8px"><strong style="font-size: 15px">Module {{m.n}}</strong><span style="font-size: 12px; font-weight: 600; color: #1A3C9A">Week {{m.n}}</span></div>
+            <span class="muted" style="font-size: 12px">Sessions {{m.sFrom}}–{{m.sTo}} · 20 h · Mon–Thu</span>
+          </div>
+          <sc-for list="{{m.items}}" as="c" hint-placeholder-count="1">
+            <div class="chip {{c.cls}}" draggable="true" onDragStart="{{c.start}}" onDragEnd="{{c.end}}" style="animation-delay: {{c.delay}}; background: #FFFFFF; border: 1px solid #DDE1E7; border-left: 4px solid {{c.color}}; border-radius: 10px; padding: 8px 6px 8px 8px; display: flex; gap: 6px; align-items: flex-start; opacity: {{c.opacity}}">
+              <svg width="12" height="18" viewBox="0 0 14 20" aria-hidden="true" style="flex: 0 0 auto; margin-top: 2px"><g fill="#9AA3B2"><circle cx="4" cy="4" r="1.5"></circle><circle cx="10" cy="4" r="1.5"></circle><circle cx="4" cy="10" r="1.5"></circle><circle cx="10" cy="10" r="1.5"></circle><circle cx="4" cy="16" r="1.5"></circle><circle cx="10" cy="16" r="1.5"></circle></g></svg>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+                <span style="font-weight: 600; font-size: 13px; line-height: 1.3">Ch {{c.n}} · {{c.title}}</span>
+                <span class="mono muted" style="font-size: 11.5px">{{c.sessions}} · {{c.pages}} pp</span>
+              </div>
+              <div style="display: flex; flex-direction: column">
+                <button class="mv" onClick="{{c.left}}" aria-label="Move chapter {{c.n}} to previous module"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button>
+                <button class="mv" onClick="{{c.right}}" aria-label="Move chapter {{c.n}} to next module"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg></button>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{m.empty}}" hint-placeholder-val="{{ false }}">
+            <div style="border: 2px dashed #C9CFD8; border-radius: 10px; padding: 18px 8px; text-align: center; color: #5A6170; font-size: 13px">Empty week · drop a chapter here</div>
+          </sc-if>
+        </section>
+      </sc-for>
+    </div>
+  </main>
+  <footer class="foot">
+    <a class="btn" href="ModuleSetup.dc.html">Back</a>
+    <span style="flex: 1"></span>
+    <span class="muted" style="font-size: 13px">Accepting creates 10 module folders and cuts the PDF</span>
+    <a class="btn btn-p" href="Folders.dc.html">Accept split</a>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Modules and weeks" prompts="Move Vectors into Week 1|Why does Energy get one week for two chapters?" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+var CH = [
+  ['Physics and Measurement',23,1],['Motion in One Dimension',36,2],['Vectors',20,1],
+  ['Motion in Two Dimensions',30,3],['The Laws of Motion',38,3],['Circular Motion and Newton’s Laws',28,2],
+  ['Energy of a System',34,2],['Conservation of Energy',34,2],['Linear Momentum and Collisions',42,3],
+  ['Rotation of a Rigid Object',44,2],['Angular Momentum',26,1],['Static Equilibrium and Elasticity',26,1]
+];
+var COLORS = ['#2450C8','#8FA8E8','#B4570B','#F0B27A','#1E7A46','#8CC7A4','#6B3FA0','#B9A0DA','#0E7490','#7DC4D6','#9F1239','#E9A3B5'];
+var PROPOSAL = [0,0,1,2,3,4,5,5,6,7,8,9];
+var NMOD = 10, PER = 8;
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { at: PROPOSAL.slice(), drag: null, over: null, settled: false }; }
+  componentDidMount() { var s = this; this._t = setTimeout(function () { s.setState({ settled: true }); }, 4500); }
+  componentWillUnmount() { clearTimeout(this._t); }
+  move(ci, mi) { if (mi < 0 || mi >= NMOD) return; var a = this.state.at.slice(); a[ci] = mi; this.setState({ at: a, drag: null, over: null }); }
+  renderVals() {
+    var s = this, st = this.state, order = 0, cellsByModule = [];
+    var modules = [];
+    for (var mi = 0; mi < NMOD; mi++) {
+      var idx = [];
+      CH.forEach(function (c, ci) { if (st.at[ci] === mi) idx.push(ci); });
+      var w = idx.map(function (ci) { return CH[ci][1] * (1 + CH[ci][2] * 0.4); });
+      var tot = w.reduce(function (a, b) { return a + b; }, 0);
+      var alloc = w.map(function (x) { return Math.max(1, Math.round(PER * x / tot)); });
+      var sum = alloc.reduce(function (a, b) { return a + b; }, 0);
+      while (sum > PER && alloc.length) { var k = alloc.indexOf(Math.max.apply(null, alloc)); alloc[k]--; sum--; }
+      while (sum < PER && alloc.length) { var j = alloc.indexOf(Math.min.apply(null, alloc)); alloc[j]++; sum++; }
+      var base = mi * PER + 1, cur = base, cells = [];
+      var items = idx.map(function (ci, k) {
+        var from = cur, to = cur + alloc[k] - 1; cur = to + 1;
+        for (var q = from; q <= to; q++) cells.push({ color: COLORS[ci], label: 'Session ' + q + ' · Ch ' + (ci + 1) });
+        return {
+          n: ci + 1, title: CH[ci][0], pages: CH[ci][1], color: COLORS[ci],
+          sessions: from === to ? 'Session ' + from : 'Sessions ' + from + '–' + to,
+          cls: st.settled ? '' : 'fly', delay: (1.1 + (order++) * 0.16).toFixed(2) + 's',
+          opacity: st.drag === ci ? '0.4' : '1',
+          start: (function (ci) { return function (e) { try { e.dataTransfer.setData('text/plain', String(ci)); } catch (x) {} s.setState({ drag: ci }); }; })(ci),
+          end: function () { s.setState({ drag: null, over: null }); },
+          left: (function (ci, mi) { return function () { s.move(ci, mi - 1); }; })(ci, mi),
+          right: (function (ci, mi) { return function () { s.move(ci, mi + 1); }; })(ci, mi)
+        };
+      });
+      while (cells.length < PER) cells.push({ color: '#E3E6EB', label: 'Empty session' });
+      cellsByModule.push(cells);
+      var isOver = st.over === mi && st.drag !== null;
+      modules.push({
+        n: mi + 1, items: items, empty: items.length === 0, sFrom: base, sTo: base + PER - 1,
+        delay: (mi * 0.09).toFixed(2) + 's',
+        bg: isOver ? '#E8EEFC' : '#EEF0F4', border: isOver ? '#2450C8' : '#EEF0F4', borderStyle: isOver ? 'dashed' : 'solid',
+        over: (function (mi) { return function (e) { e.preventDefault(); if (s.state.over !== mi) s.setState({ over: mi }); }; })(mi),
+        drop: (function (mi) { return function (e) { e.preventDefault(); var ci = s.state.drag; if (ci === null) { try { ci = parseInt(e.dataTransfer.getData('text/plain'), 10); } catch (x) {} } if (ci !== null && !isNaN(ci)) s.move(ci, mi); }; })(mi)
+      });
+    }
+    return {
+      chatOpen: !!st.chatOpen, toggleChat: function () { s.setState({ chatOpen: !s.state.chatOpen }); },
+      modules: modules,
+      weeks: cellsByModule.map(function (c, i) { return { n: i + 1, cells: c }; }),
+      reset: function () { s.setState({ at: PROPOSAL.slice() }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

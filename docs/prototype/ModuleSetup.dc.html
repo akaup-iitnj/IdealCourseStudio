@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Course schedule</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.ib{min-width:36px;height:32px;border:0;border-radius:6px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:6px;color:#15181E;font:inherit;font-weight:500;padding:0 10px;text-decoration:none}
+.rail{background:#FFFFFF;border-bottom:1px solid #DDE1E7;padding:0 32px}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px}
+.rail li{display:flex;align-items:center;gap:8px;padding:12px 12px 10px;font-size:13px;color:#5A6170;border-bottom:2px solid transparent}
+.rail .n{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:600;border:1px solid #C9CFD8;box-sizing:border-box}
+.rail li.done .n{background:#E8EEFC;border-color:#E8EEFC;color:#2450C8}
+.rail li.cur{color:#15181E;font-weight:600;border-bottom-color:#2450C8}
+.rail li.cur .n{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.rail a{display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}.rail a:hover{color:#2450C8}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5A6170}
+h1{font-size:26px;font-weight:650;margin:0;letter-spacing:-.01em}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.q{flex:1 1 200px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.q label{font-weight:600;font-size:13.5px}
+.q input{font:inherit;font-size:34px;font-weight:650;width:100%;box-sizing:border-box;min-height:64px;padding:0 14px;border:1px solid #C9CFD8;border-radius:10px;background:#FFFFFF;color:#15181E}
+.d{flex:1 1 150px;padding:16px;border-radius:12px;background:#FFFFFF;border:1px solid #DDE1E7;display:flex;flex-direction:column;gap:2px}
+.d strong{font-size:26px;font-weight:650}
+.arrow{align-self:center;color:#9AA3B2;font-size:20px}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><span>Physics for Scientists &amp; Engineers</span>
+    <span style="flex: 1"></span>
+    <button class="ib" aria-label="Open chat" onClick="{{toggleChat}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc">
+      <button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button>
+      <button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button>
+      <button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button>
+    </div>
+  </header>
+  <nav class="rail" aria-label="Steps"><ol>
+    <li class="done"><a href="Upload.dc.html"><span class="n">✓</span>Textbook</a></li><li class="done"><a href="Chapters.dc.html"><span class="n">✓</span>Chapters</a></li><li class="cur"><a href="ModuleSetup.dc.html"><span class="n">3</span>Schedule</a></li><li><a href="ModuleSplit.dc.html"><span class="n">4</span>Modules</a></li><li><a href="Folders.dc.html"><span class="n">5</span>Files &amp; pictures</a></li><li><a href="Lessons.dc.html"><span class="n">6</span>Lessons</a></li><li><a href="Preview.dc.html"><span class="n">7</span>Text</a></li><li><a href="Canvas.dc.html"><span class="n">8</span>Canvas</a></li><li><a href="Lectures.dc.html"><span class="n">9</span>Lectures</a></li>
+  </ol></nav>
+
+  <main style="flex: 1; width: 100%; max-width: 1180px; margin: 0 auto; box-sizing: border-box; padding: 32px; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span class="eyebrow">Course schedule · worked backwards from the calendar</span>
+      <h1>How is this course taught?</h1>
+      <p class="muted" style="margin: 0">Defaults are Ideal’s standard term. Change any number and the rest recalculates.</p>
+    </div>
+
+    <div class="card" style="display: flex; flex-wrap: wrap">
+      <div class="q"><label for="wk">Weeks in the course</label><input id="wk" type="number" min="1" value="{{weeks}}" onChange="{{setWeeks}}"></div>
+      <div class="q"><label for="hr">Total teaching hours</label><input id="hr" type="number" min="1" value="{{hours}}" onChange="{{setHours}}"></div>
+      <div class="q"><label for="dy">Teaching days per week</label><input id="dy" type="number" min="1" max="7" value="{{days}}" onChange="{{setDays}}"></div>
+      <div class="q"><label for="ss">Sessions per day</label><input id="ss" type="number" min="1" value="{{sess}}" onChange="{{setSess}}"></div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span class="eyebrow">Calculated</span>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <div class="d"><strong>{{perWeek}} h</strong><span class="muted" style="font-size: 13px">per week</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="d"><strong>{{perDay}} h</strong><span class="muted" style="font-size: 13px">per teaching day</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="d" style="background: #E8EEFC; border-color: #C7D4F5"><strong style="color: #1A3C9A">{{perSession}} h</strong><span style="font-size: 13px; color: #1A3C9A">per session</span></div>
+        <span class="arrow" aria-hidden="true">=</span>
+        <div class="d"><strong>{{totalSessions}}</strong><span class="muted" style="font-size: 13px">sessions in the course</span></div>
+      </div>
+      <p style="margin: 4px 0 0; font-size: 15px">{{sentence}}</p>
+    </div>
+
+    <div class="card" style="padding: 20px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center">
+      <div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 4px">
+        <label for="md" style="font-weight: 600">Modules</label>
+        <span class="muted" style="font-size: 13px">Default is one module per week. Each module then holds {{perModule}} sessions.</span>
+      </div>
+      <input id="md" type="number" min="1" value="{{mods}}" onChange="{{setMods}}" style="font: inherit; font-size: 28px; font-weight: 650; width: 120px; min-height: 56px; text-align: center; border: 1px solid #C9CFD8; border-radius: 10px">
+    </div>
+  </main>
+  <footer class="foot">
+    <a class="btn" href="Chapters.dc.html">Back</a>
+    <span style="flex: 1"></span>
+    <span class="muted" style="font-size: 13px">Enter ↵ · the model then proposes which chapters go in which week</span>
+    <a class="btn btn-p" href="ModuleSplit.dc.html">Propose modules</a>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Course schedule" prompts="Make it 12 weeks with 3 sessions a day|What if total hours were 180?" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+function fmt(n) { if (!isFinite(n)) return '—'; var r = Math.round(n * 100) / 100; return String(r); }
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { weeks: 10, hours: 200, days: 4, sess: 2, mods: 10, modsTouched: false }; }
+  setter(k) { var s = this; return function (e) { var v = parseInt(e.target.value, 10); var patch = {}; patch[k] = isNaN(v) ? '' : v; if (k === 'mods') patch.modsTouched = true; if (k === 'weeks' && !s.state.modsTouched) patch.mods = patch[k]; s.setState(patch); }; }
+  renderVals() {
+    var st = this.state;
+    var w = st.weeks || 0, h = st.hours || 0, d = st.days || 0, ss = st.sess || 0, m = st.mods || 0;
+    var perWeek = h / w, perDay = perWeek / d, perSession = perDay / ss, total = w * d * ss;
+    var me = this;
+    return {
+      chatOpen: !!st.chatOpen, toggleChat: function () { me.setState({ chatOpen: !me.state.chatOpen }); },
+      weeks: st.weeks, hours: st.hours, days: st.days, sess: st.sess, mods: st.mods,
+      perWeek: fmt(perWeek), perDay: fmt(perDay), perSession: fmt(perSession), totalSessions: total || '—',
+      perModule: fmt(total / m),
+      sentence: fmt(perSession) + '-hour sessions, ' + ss + ' a day, ' + d + ' days a week, for ' + w + ' weeks.',
+      setWeeks: this.setter('weeks'), setHours: this.setter('hours'), setDays: this.setter('days'), setSess: this.setter('sess'), setMods: this.setter('mods')
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lecture · Render</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=Caveat:wght@700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#E9EBEF}
+.win:has(.chatdock){padding-right:380px;box-sizing:border-box}.win:has(.chatdock)>.tb{margin-right:-380px}
+a{color:#2450C8}a:hover{color:#1A3C9A}
+.win{font-family:'Instrument Sans',system-ui,sans-serif;color:#15181E;background:#F4F5F7;width:100%;min-height:900px;display:flex;flex-direction:column;font-size:14px;line-height:1.45}
+.tb{height:40px;display:flex;align-items:center;gap:10px;padding-left:14px;background:#FFFFFF;border-bottom:1px solid #DDE1E7;font-size:13px}
+.wc{display:flex;align-self:stretch}.wc button{width:46px;border:0;background:transparent;display:grid;place-items:center;color:#15181E}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px}
+.muted{color:#5A6170}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;border:1px solid #C9CFD8;background:#FFFFFF;color:#15181E;font:inherit;font-weight:600;text-decoration:none;box-sizing:border-box}
+.btn-p{background:#2450C8;border-color:#2450C8;color:#FFFFFF}
+.btn[disabled]{background:#E3E6EB;border-color:#E3E6EB;color:#5A6170}
+.card{background:#FFFFFF;border:1px solid #DDE1E7;border-radius:12px}
+h2{font-size:16px;font-weight:650;margin:0}
+.foot{background:#FFFFFF;border-top:1px solid #DDE1E7;padding:12px 32px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.stages{display:flex;flex-wrap:wrap;gap:6px;padding:10px 32px;background:#FFFFFF;border-bottom:1px solid #DDE1E7}
+.sg{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:600;background:#F4F5F7;color:#5A6170;text-decoration:none}
+.sg.done{background:#E6F3EC;color:#1A6A3D}.sg.cur{background:#2450C8;color:#FFFFFF}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(36,80,200,.55)}100%{box-shadow:0 0 0 12px rgba(36,80,200,0)}}
+.live{width:12px;height:12px;border-radius:50%;background:#2450C8;animation:pulse 1.4s ease-out infinite}
+@media (prefers-reduced-motion: reduce){.live{animation:none}}
+.row{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #EDEFF3;font-size:13.5px;align-items:center}
+</style>
+</helmet>
+<div class="win">
+  <header class="tb">
+    <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="1.5" y="1.5" width="17" height="17" rx="4" fill="#2450C8"></rect><path d="M6 7h8M6 10h8M6 13h5" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"></path></svg>
+    <a href="Main.dc.html" style="color: #15181E; text-decoration: none"><strong>Course Studio</strong></a><span class="muted">/</span><a href="Lectures.dc.html" style="color: #15181E">Lectures</a><span class="muted">/</span><span>Position, Velocity, and Speed · 15 min</span>
+    <span style="flex: 1"></span>
+    <button onClick="{{toggleChat}}" aria-label="Open chat" style="height: 32px; border: 0; border-radius: 6px; background: transparent; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; font: inherit; font-weight: 500; color: #15181E; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Chat</button>
+    <div class="wc"><button aria-label="Minimize"><svg width="10" height="10" aria-hidden="true"><path d="M0 5h10" stroke="currentColor"></path></svg></button><button aria-label="Maximize"><svg width="10" height="10" aria-hidden="true"><rect x=".5" y=".5" width="9" height="9" fill="none" stroke="currentColor"></rect></svg></button><button aria-label="Close"><svg width="10" height="10" aria-hidden="true"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor"></path></svg></button></div>
+  </header>
+  <nav class="stages" aria-label="Lecture stages">
+    <a class="sg done" href="LecPlan.dc.html">✓ 1 Plan</a><a class="sg done" href="LecScript.dc.html">✓ 2 Script · locked</a><a class="sg done" href="LecVoice.dc.html">✓ 3 Voice</a><a class="sg done" href="LecTiming.dc.html">✓ 4 Transcript</a><a class="sg done" href="LectureStudio.dc.html">✓ 5 Beats · confirmed</a><a class="sg done" href="LecScene.dc.html">✓ 6 Scene</a><a class="sg cur" href="LecRender.dc.html" aria-current="page">7 Render</a>
+  </nav>
+
+  <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 16px; padding: 20px 32px; box-sizing: border-box; align-items: flex-start">
+    <div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+      <section class="card" role="status" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; border-color: #C7D4F5">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+          <span class="live" aria-hidden="true"></span>
+          <strong style="flex: 1 1 300px; font-size: 16px">Rendering on this PC · scene 14 of 22</strong>
+          <span class="mono">frame 18,420 / 27,060</span><span class="mono muted">about 6 min left</span>
+        </div>
+        <div style="height: 10px; border-radius: 5px; background: #E8EEFC"><div style="width: 68%; height: 10px; border-radius: 5px; background: #2450C8"></div></div>
+        <span class="muted" style="font-size: 12.5px">1080p · 30 fps · headless Chromium + Motion Canvas · you can keep working in other projects</span>
+      </section>
+      <div style="aspect-ratio: 16 / 9; max-height: 420px; border-radius: 12px; background: #1B2230; position: relative; overflow: hidden">
+        <svg viewBox="0 0 640 360" width="100%" height="100%" role="img" aria-label="Latest rendered frame: a velocity-time graph being drawn">
+          <path d="M90 300 H 560 M90 300 V 100" stroke="#9AA6BC" stroke-width="3"></path>
+          <path d="M90 260 L 330 150" stroke="#F2B66B" stroke-width="5" stroke-linecap="round"></path>
+          <text x="360" y="150" style="font-family: 'Caveat', cursive; font-size: 40px; font-weight: 700; fill: #F3F1E8">slope = v̄</text>
+          <circle cx="330" cy="150" r="7" fill="#FFFFFF"></circle>
+        </svg>
+        <span class="mono" style="position: absolute; left: 12px; bottom: 10px; color: #C9D2E3">latest frame · 10:14.0</span>
+      </div>
+    </div>
+
+    <aside style="flex: 1 1 320px; max-width: 380px; display: flex; flex-direction: column; gap: 16px">
+      <section class="card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 4px">
+        <h2>Output</h2>
+        <div class="row mono"><span style="flex: 1">lecture.mp4</span><span class="muted">writing…</span></div>
+        <div class="row mono"><span style="flex: 1">lecture.vtt</span><span style="color: #1A6A3D">ready</span></div>
+        <div class="row mono" style="border-bottom: 0"><span style="flex: 1">thumbnail.png</span><span style="color: #1A6A3D">ready</span></div>
+      </section>
+      <section class="card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; font-size: 13px">
+        <h2>Chapters · from sections</h2>
+        <div class="mono">0:00 Position as x(t)</div><div class="mono">2:04 Displacement vs distance</div><div class="mono">5:16 Average velocity</div><div class="mono">8:44 Position–time graphs</div><div class="mono">12:08 Average speed</div>
+        <span class="muted">Sources listed in the Canvas description: textbook pp. 25–31, Fig 2.1b. Voice: ElevenLabs.</span>
+      </section>
+      <section class="card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; font-size: 13px">
+        <h2>Review log</h2>
+        <div style="display: flex; gap: 8px"><span style="color: #1A6A3D; font-weight: 700">✓</span><span style="flex: 1">Script locked</span><span class="muted mono">Oct 31</span></div>
+        <div style="display: flex; gap: 8px"><span style="color: #1A6A3D; font-weight: 700">✓</span><span style="flex: 1">Voice: whole take heard</span><span class="muted mono">Oct 31</span></div>
+        <div style="display: flex; gap: 8px"><span style="color: #1A6A3D; font-weight: 700">✓</span><span style="flex: 1">Transcript: 2 words fixed</span><span class="muted mono">Oct 31</span></div>
+        <div style="display: flex; gap: 8px"><span style="color: #1A6A3D; font-weight: 700">✓</span><span style="flex: 1">Beats: 142 of 142 confirmed</span><span class="muted mono">Oct 31</span></div>
+        <div style="display: flex; gap: 8px"><span style="color: #1A6A3D; font-weight: 700">✓</span><span style="flex: 1">Preview watched</span><span class="muted mono">Oct 31</span></div>
+        <div style="display: flex; gap: 8px"><span class="muted">○</span><span style="flex: 1">Final video watched with sound</span></div>
+      </section>
+      <section class="card" style="padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+        <h2>Then</h2>
+        <span style="font-size: 13.5px">Watch the finished video once, then it replaces the blank “Position, Velocity, and Speed” video in Canvas Week 1, captions included.</span>
+        <button class="btn" disabled>Replace blank lecture in Canvas</button>
+        <span class="muted" style="font-size: 12.5px">Rendering runs in the background. Open another lecture from the Lecture view and keep working.</span>
+      </section>
+    </aside>
+  </div>
+  <footer class="foot">
+    <a class="btn" href="LecScene.dc.html">Back to scenes</a>
+    <button class="btn">Cancel render</button>
+    <button class="btn">Test render: first 5 seconds</button>
+    <span style="flex: 1"></span>
+    <a class="btn" href="Lectures.dc.html">Back to queue</a>
+  </footer>
+  <sc-if value="{{chatOpen}}" hint-placeholder-val="{{ false }}">
+    <div class="chatdock" style="position: fixed; top: 40px; right: 0; bottom: 0; width: 380px; max-width: 100%; z-index: 50">
+      <dc-import name="ChatDrawer" where="Lecture · Render" prompts="Render only the first 30 seconds|Why is this render slow?" on-close="{{toggleChat}}" hint-size="380px,100%"></dc-import>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1120}}'>
+class Component extends DCLogic {
+  renderVals() { var c = this, st = this.state || {}; return { chatOpen: !!st.chatOpen, toggleChat: function () { c.setState({ chatOpen: !((c.state || {}).chatOpen) }); } }; }
+}
+</script>
+</body>
+</html>
