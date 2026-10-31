@@ -28,3 +28,7 @@ models/
 
 .DS_Store
 Thumbs.db
+
+# Build output
+*.blockmap
+*.tsbuildinfo
