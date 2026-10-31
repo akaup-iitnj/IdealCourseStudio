@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    name: Lint, types, tests (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: astral-sh/setup-uv@v6
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: uv sync --project python
+      - run: pnpm test:py
+      - name: End-to-end (Windows)
+        if: runner.os == 'Windows'
+        run: pnpm test:e2e
+      - name: End-to-end (Linux, virtual display)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a pnpm test:e2e
+      - name: Windows installer
+        if: runner.os == 'Windows'
+        run: pnpm build:win
+      - uses: actions/upload-artifact@v4
+        if: runner.os == 'Windows'
+        with:
+          name: course-studio-installer
+          path: dist/*.exe
+          retention-days: 14
