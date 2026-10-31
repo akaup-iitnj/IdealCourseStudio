@@ -24,3 +24,18 @@ export async function log(scope: string, message: string): Promise<void> {
     // Logging must never crash the app.
   }
 }
+
+/** Last `lines` lines of today's log file, for diagnostics (already redacted when written). */
+export async function tailLog(lines: number): Promise<string> {
+  try {
+    const { readFile } = await import('node:fs/promises')
+    const text = await readFile(join(logsDir(), `course-studio-${today()}.log`), 'utf8')
+    return text
+      .split('\n')
+      .slice(-lines - 1)
+      .join('\n')
+      .trim()
+  } catch {
+    return ''
+  }
+}

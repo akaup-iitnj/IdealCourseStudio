@@ -81,6 +81,10 @@ export function SettingsScreen() {
       </motion.div>
 
       <motion.div variants={rise}>
+        <ClaudeCodeCard />
+      </motion.div>
+
+      <motion.div variants={rise}>
         <AppearanceCard />
       </motion.div>
 
@@ -230,6 +234,102 @@ function ClaudeKeyCard() {
           </p>
         )}
       </CardContent>
+    </Card>
+  )
+}
+
+function ClaudeCodeCard() {
+  const mcp = useApp((s) => s.settings?.mcp)
+  const setSettings = useApp((s) => s.setSettings)
+  const [busy, setBusy] = useState(false)
+
+  async function toggle(): Promise<void> {
+    if (!mcp) return
+    setBusy(true)
+    try {
+      setSettings(await api.invoke('mcp:setEnabled', !mcp.enabled))
+    } catch (err) {
+      toast.error(cleanError(err))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center gap-3">
+          <CardTitle>Claude Code connection</CardTitle>
+          {mcp?.running ? (
+            <Badge tone="done" data-testid="mcp-status">
+              On
+            </Badge>
+          ) : (
+            <Badge data-testid="mcp-status">Off</Badge>
+          )}
+          <button
+            role="switch"
+            aria-checked={!!mcp?.enabled}
+            aria-label="Let Claude Code control this app"
+            disabled={!mcp || busy}
+            onClick={() => void toggle()}
+            data-testid="mcp-switch"
+            className={cn(
+              'relative ml-auto h-6 w-11 rounded-full transition-colors disabled:opacity-50',
+              mcp?.enabled ? 'bg-accent' : 'bg-ink/15',
+            )}
+          >
+            <motion.span
+              layout
+              transition={{ type: 'spring', stiffness: 600, damping: 35 }}
+              className={cn(
+                'absolute top-0.5 size-5 rounded-full bg-white shadow',
+                mcp?.enabled ? 'right-0.5' : 'left-0.5',
+              )}
+            />
+          </button>
+        </div>
+        <p className="text-[13px] text-muted">
+          Lets Claude Code on this PC see and drive the app: screens, background jobs, screenshots
+          and the log. It can never read your keys or publish to Canvas. Only programs on this PC
+          with the token can connect.
+        </p>
+      </CardHeader>
+      {mcp?.enabled && (
+        <CardContent className="flex flex-col gap-3">
+          {mcp.error ? (
+            <p className="text-[13px] text-stuck-ink">{mcp.error}</p>
+          ) : (
+            <p className="text-[13px]">
+              Listening at <span className="selectable font-mono text-[12.5px]">{mcp.url}</span>
+            </p>
+          )}
+          <div className="flex flex-wrap gap-2">
+            <Button
+              variant="primary"
+              onClick={() =>
+                void api
+                  .invoke('mcp:copySetupCommand')
+                  .then(() =>
+                    toast.success('Copied. Paste it into a terminal once to connect Claude Code.'),
+                  )
+              }
+            >
+              Copy setup command
+            </Button>
+            <Button
+              onClick={() =>
+                void api.invoke('mcp:resetToken').then((s) => {
+                  setSettings(s)
+                  toast('New token made. Run the new setup command; the old one stops working.')
+                })
+              }
+            >
+              Make a new token
+            </Button>
+          </div>
+        </CardContent>
+      )}
     </Card>
   )
 }

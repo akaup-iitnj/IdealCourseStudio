@@ -1,9 +1,11 @@
 import { safeStorage } from 'electron'
+import { randomBytes } from 'node:crypto'
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import {
   SettingsFileSchema,
   secretHint,
+  type McpStatus,
   type PublicSettings,
   type SecretName,
   type SettingsFile,
@@ -12,7 +14,8 @@ import {
 import { log } from './log'
 import { settingsDir } from './paths'
 
-const SECRET_NAMES: SecretName[] = ['anthropicApiKey']
+/** Secrets shown (as set / last 4) in Settings. The MCP token is handled separately. */
+const SECRET_NAMES = ['anthropicApiKey'] as const
 
 /**
  * %APPDATA%\Course Studio\settings.json. Secrets are encrypted with Electron safeStorage (DPAPI on
@@ -48,6 +51,30 @@ export class SettingsStore {
     await this.save()
   }
 
+  get mcp(): SettingsFile['mcp'] {
+    return this.data.mcp
+  }
+
+  async setMcpEnabled(enabled: boolean): Promise<void> {
+    this.data.mcp = { ...this.data.mcp, enabled }
+    await this.save()
+  }
+
+  /** Local MCP bearer token; created on first use. Main process only. */
+  async mcpToken(): Promise<string> {
+    const existing = this.getSecret('mcpToken')
+    if (existing) return existing
+    return this.resetMcpToken()
+  }
+
+  async resetMcpToken(): Promise<string> {
+    const token = `cs-mcp-${randomBytes(24).toString('base64url')}`
+    if (this.encryptionAvailable()) {
+      await this.setSecret('mcpToken', token)
+    }
+    return token
+  }
+
   encryptionAvailable(): boolean {
     return safeStorage.isEncryptionAvailable()
   }
@@ -79,7 +106,7 @@ export class SettingsStore {
     }
   }
 
-  toPublic(): PublicSettings {
+  toPublic(mcp: McpStatus): PublicSettings {
     const secrets = Object.fromEntries(
       SECRET_NAMES.map((name) => {
         const v = this.getSecret(name)
@@ -88,6 +115,7 @@ export class SettingsStore {
     ) as PublicSettings['secrets']
     return {
       theme: this.data.theme,
+      mcp,
       secrets,
       settingsPath: this.path,
       encryptionAvailable: this.encryptionAvailable(),

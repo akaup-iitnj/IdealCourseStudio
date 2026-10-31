@@ -28,6 +28,7 @@ Picks from the research of Oct 31, 2026 (full write-up: "Course Studio · Tech s
 | --- | --- | --- | --- |
 | Electron helpers | @electron-toolkit/utils 4.0.0 | MIT | `is.dev` |
 | Claude client | @anthropic-ai/sdk 1.3.0 | Apache-2.0 | Main process only |
+| MCP server | @modelcontextprotocol/sdk 1.32.2 | MIT | Local Streamable HTTP server so Claude Code can drive the app |
 | shadcn/ui building blocks | @radix-ui/react-slot, class-variance-authority, clsx, tailwind-merge, tw-animate-css | MIT / Apache-2.0 | What `shadcn add` generates against |
 | Fonts | @fontsource-variable/instrument-sans, @fontsource-variable/jetbrains-mono | OFL-1.1 | Bundled locally (offline) |
 | Lint and format | ESLint 10, typescript-eslint 8, eslint-plugin-react-hooks, eslint-plugin-react-refresh, Prettier 3 | MIT | |

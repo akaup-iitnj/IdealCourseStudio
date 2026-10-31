@@ -1,6 +1,7 @@
 import { ChevronRight, MessageSquare, Search } from 'lucide-react'
 import { Kbd } from '@/components/ui/kbd'
 import { platform } from '@/lib/api'
+import { useNow } from '@/lib/hooks'
 import { cn } from '@/lib/utils'
 import { useApp, type Route } from '@/stores/app'
 
@@ -52,6 +53,8 @@ export function TitleBar() {
         </button>
       </div>
 
+      <ClaudeCodeIndicator />
+
       <button
         disabled
         title="Chat arrives in Build 4"
@@ -61,6 +64,23 @@ export function TitleBar() {
         Chat
       </button>
     </header>
+  )
+}
+
+/** Shows for 20 s after each Claude Code tool call, so the instructor knows the app is being driven. */
+function ClaudeCodeIndicator() {
+  const activity = useApp((s) => s.mcpActivity)
+  const now = useNow(1000)
+  if (!activity || now - activity.at > 20_000) return null
+  return (
+    <span
+      className="no-drag flex h-7 items-center gap-1.5 rounded-full bg-accent-soft px-2.5 text-xs font-semibold text-accent-ink"
+      title={`Last action: ${activity.tool}`}
+      data-testid="mcp-indicator"
+    >
+      <span className="size-2 rounded-full bg-accent text-accent animate-pulse-dot" />
+      Claude Code
+    </span>
   )
 }
 

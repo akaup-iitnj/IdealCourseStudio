@@ -37,6 +37,16 @@ ref/sweatbox/    Ash's Sweatbox repo, reference only (gitignored); used in Build
 - Jobs are queued and persisted in `project.json`, so a closed app resumes where it stopped.
 - Project folder layout and `project.json` shape: see `docs/build-1-spec.md`.
 
+## Driving the app from Claude Code (MCP)
+
+The app runs a local MCP server (`src/main/mcp/`) so Claude Code can see and control it: `get_app_state`, `screenshot`, `navigate`, `set_theme`, `list_jobs`, `get_job`, `start_sample_job`, `cancel_job`, `retry_job`, `dismiss_job`, `get_system_info`, `test_claude_key`, `read_log`.
+
+- Turn it on in Settings → Claude Code connection, click **Copy setup command**, paste into a terminal once (`claude mcp add ... --scope user`). Then restart Claude Code. Dev (`pnpm dev`) and installed builds share the same settings, so this is a one-time step.
+- Use it to check your work: after a UI change, run `pnpm dev`, then call `screenshot` instead of asking Ash for one.
+- **Every new feature that the instructor can do in the UI gets an MCP tool** (add it to `AppBridge` in `src/main/mcp/bridge.ts` and `src/main/mcp/tools.ts`, and extend `tests/e2e/mcp.spec.ts`).
+- Never add tools that read or set secrets, touch arbitrary files, or publish to Canvas.
+- Security: 127.0.0.1 only, bearer token (encrypted in settings.json), browser Origins refused, off by default.
+
 ## Rules
 
 1. **Windows first.** Use `path.join`, handle spaces and long paths, test on Windows. Commands in docs use PowerShell.

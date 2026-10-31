@@ -15,8 +15,18 @@ const CHANNELS: readonly IpcChannel[] = [
   'jobs:retry',
   'jobs:dismiss',
   'shell:openSettingsFolder',
+  'mcp:setEnabled',
+  'mcp:resetToken',
+  'mcp:copySetupCommand',
+  'ui:reportRoute',
 ]
-const EVENTS: readonly IpcEvent[] = ['jobs:update']
+const EVENTS: readonly IpcEvent[] = [
+  'jobs:update',
+  'jobs:removed',
+  'app:navigate',
+  'settings:changed',
+  'mcp:activity',
+]
 
 const api: CourseStudioApi = {
   invoke: ((channel: IpcChannel, ...args: unknown[]) => {

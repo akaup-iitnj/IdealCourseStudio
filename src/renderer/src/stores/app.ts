@@ -4,7 +4,8 @@ import type { PublicSettings, Theme } from '@shared/settings'
 import type { SystemInfo } from '@shared/system'
 import { api } from '@/lib/api'
 
-export type Route = 'projects' | 'settings'
+export type { Route } from '@shared/ipc'
+import type { Route } from '@shared/ipc'
 
 interface AppState {
   route: Route
@@ -13,6 +14,8 @@ interface AppState {
   system: SystemInfo | null
   jobs: Record<string, JobSnapshot>
   jobOrder: string[]
+  /** Last Claude Code (MCP) tool call, for the title-bar indicator. */
+  mcpActivity: { tool: string; at: number } | null
 
   navigate: (route: Route) => void
   setPaletteOpen: (open: boolean) => void
@@ -24,6 +27,7 @@ interface AppState {
   cancelJob: (id: string) => Promise<void>
   retryJob: (id: string) => Promise<void>
   dismissJob: (id: string) => Promise<void>
+  removeJob: (id: string) => void
   upsertJob: (job: JobSnapshot) => void
 }
 
@@ -34,8 +38,12 @@ export const useApp = create<AppState>((set, get) => ({
   system: null,
   jobs: {},
   jobOrder: [],
+  mcpActivity: null,
 
-  navigate: (route) => set({ route, paletteOpen: false }),
+  navigate: (route) => {
+    set({ route, paletteOpen: false })
+    void api.invoke('ui:reportRoute', route)
+  },
   setPaletteOpen: (paletteOpen) => set({ paletteOpen }),
 
   init: async () => {
@@ -46,6 +54,10 @@ export const useApp = create<AppState>((set, get) => ({
     set({ settings })
     jobs.forEach(get().upsertJob)
     api.on('jobs:update', get().upsertJob)
+    api.on('jobs:removed', get().removeJob)
+    api.on('app:navigate', (route) => set({ route, paletteOpen: false }))
+    api.on('settings:changed', (settings) => set({ settings }))
+    api.on('mcp:activity', (mcpActivity) => set({ mcpActivity }))
     void get().loadSystem()
   },
 
@@ -70,12 +82,14 @@ export const useApp = create<AppState>((set, get) => ({
   },
   dismissJob: async (id) => {
     await api.invoke('jobs:dismiss', id)
+    get().removeJob(id)
+  },
+  removeJob: (id) =>
     set((s) => {
       const jobs = { ...s.jobs }
       delete jobs[id]
       return { jobs, jobOrder: s.jobOrder.filter((j) => j !== id) }
-    })
-  },
+    }),
   upsertJob: (job) =>
     set((s) => ({
       jobs: { ...s.jobs, [job.id]: job },

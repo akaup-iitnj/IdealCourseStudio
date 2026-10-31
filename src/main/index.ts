@@ -9,9 +9,14 @@ import {
 } from 'electron'
 import { join } from 'node:path'
 import { is } from '@electron-toolkit/utils'
+import type { Route } from '@shared/ipc'
+import { testClaudeKey } from './claude'
 import { JobRunner } from './jobs/runner'
+import type { AppBridge } from './mcp/bridge'
+import { McpController } from './mcp/server'
+import { systemInfo } from './system'
 import { registerIpc } from './ipc'
-import { log } from './log'
+import { log, tailLog } from './log'
 import { APP_NAME } from './paths'
 import { SettingsStore } from './settings'
 import { CHROME, TITLE_BAR_HEIGHT } from './theme'
@@ -108,6 +113,60 @@ const jobs = new JobRunner({
   onUpdate: (snapshot) => mainWindow?.webContents.send('jobs:update', snapshot),
 })
 
+// ---- Claude Code connection (MCP) ----
+let route: Route = 'projects'
+
+/** CS_MCP=1 forces it on (tests, development); otherwise the Settings switch decides. */
+const mcpEnabled = (): boolean => process.env.CS_MCP === '1' || settings.mcp.enabled
+const mcpPort = (): number =>
+  process.env.CS_MCP_PORT ? Number(process.env.CS_MCP_PORT) : settings.mcp.port
+const publicSettings = () => settings.toPublic(mcp.status(mcpEnabled()))
+
+function broadcastSettings(): void {
+  mainWindow?.webContents.send('settings:changed', publicSettings())
+}
+
+const bridge: AppBridge = {
+  version: app.getVersion(),
+  route: () => route,
+  navigate: (r) => {
+    route = r
+    mainWindow?.webContents.send('app:navigate', r)
+  },
+  settings: publicSettings,
+  setTheme: async (theme) => {
+    await settings.setTheme(theme)
+    applyTheme()
+    broadcastSettings()
+  },
+  systemInfo,
+  testClaudeKey: () => testClaudeKey(settings.getSecret('anthropicApiKey')),
+  jobs: {
+    list: () => jobs.list(),
+    start: (req) => jobs.start(req),
+    cancel: (id) => jobs.cancel(id),
+    retry: (id) => jobs.retry(id),
+    dismiss: (id) => {
+      jobs.dismiss(id)
+      mainWindow?.webContents.send('jobs:removed', id)
+    },
+  },
+  screenshot: async () =>
+    mainWindow ? (await mainWindow.webContents.capturePage()).toPNG() : null,
+  readLog: tailLog,
+}
+
+const mcp = new McpController({
+  bridge,
+  getToken: async () => process.env.CS_MCP_TOKEN ?? (await settings.mcpToken()),
+  onActivity: (tool) => mainWindow?.webContents.send('mcp:activity', { tool, at: Date.now() }),
+})
+
+async function syncMcp(): Promise<void> {
+  if (mcpEnabled()) await mcp.start(mcpPort())
+  else await mcp.stop()
+}
+
 if (!app.requestSingleInstanceLock()) {
   app.quit()
 } else {
@@ -128,8 +187,27 @@ if (!app.requestSingleInstanceLock()) {
     // Deny every permission request (camera, notifications, ...) until a feature needs one.
     session.defaultSession.setPermissionRequestHandler((_wc, _perm, cb) => cb(false))
 
-    registerIpc({ settings, jobs, applyTheme, isTrustedSender })
+    registerIpc({
+      settings,
+      jobs,
+      applyTheme,
+      isTrustedSender,
+      publicSettings,
+      setRoute: (r) => (route = r),
+      mcp: {
+        setEnabled: async (on) => {
+          await settings.setMcpEnabled(on)
+          await syncMcp()
+        },
+        resetToken: async () => {
+          await settings.resetMcpToken()
+        },
+        setupCommand: async () =>
+          mcp.setupCommandFor(process.env.CS_MCP_TOKEN ?? (await settings.mcpToken())),
+      },
+    })
     createWindow()
+    await syncMcp()
     void log(
       'app',
       `started ${app.getVersion()} on ${process.platform} ${process.getSystemVersion()}`,
@@ -141,7 +219,10 @@ if (!app.requestSingleInstanceLock()) {
   })
 }
 
-app.on('before-quit', () => jobs.dispose())
+app.on('before-quit', () => {
+  jobs.dispose()
+  void mcp.stop()
+})
 app.on('window-all-closed', () => {
   jobs.dispose()
   if (process.platform !== 'darwin') app.quit()

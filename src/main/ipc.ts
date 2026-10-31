@@ -1,6 +1,13 @@
-import { ipcMain, shell, type WebContents } from 'electron'
+import { clipboard, ipcMain, shell, type WebContents } from 'electron'
 import { dirname } from 'node:path'
-import { ipcContract, type IpcChannel, type IpcInput, type IpcOutput } from '@shared/ipc'
+import {
+  ipcContract,
+  type IpcChannel,
+  type IpcInput,
+  type IpcOutput,
+  type Route,
+} from '@shared/ipc'
+import type { PublicSettings } from '@shared/settings'
 import { testClaudeKey } from './claude'
 import type { JobRunner } from './jobs/runner'
 import { log } from './log'
@@ -14,22 +21,29 @@ export function registerIpc(deps: {
   jobs: JobRunner
   applyTheme: () => void
   isTrustedSender: (sender: WebContents) => boolean
+  publicSettings: () => PublicSettings
+  setRoute: (route: Route) => void
+  mcp: {
+    setEnabled: (on: boolean) => Promise<void>
+    resetToken: () => Promise<void>
+    setupCommand: () => Promise<string>
+  }
 }): void {
   const { settings, jobs } = deps
   const handlers: Handlers = {
-    'settings:get': () => settings.toPublic(),
+    'settings:get': () => deps.publicSettings(),
     'settings:setTheme': async (theme) => {
       await settings.setTheme(theme)
       deps.applyTheme()
-      return settings.toPublic()
+      return deps.publicSettings()
     },
     'settings:setSecret': async ({ name, value }) => {
       await settings.setSecret(name, value)
-      return settings.toPublic()
+      return deps.publicSettings()
     },
     'settings:clearSecret': async (name) => {
       await settings.clearSecret(name)
-      return settings.toPublic()
+      return deps.publicSettings()
     },
     'claude:testKey': ({ value }) =>
       testClaudeKey(value?.trim() || settings.getSecret('anthropicApiKey')),
@@ -42,6 +56,18 @@ export function registerIpc(deps: {
     'shell:openSettingsFolder': async () => {
       await shell.openPath(dirname(settings.path))
     },
+    'mcp:setEnabled': async (on) => {
+      await deps.mcp.setEnabled(on)
+      return deps.publicSettings()
+    },
+    'mcp:resetToken': async () => {
+      await deps.mcp.resetToken()
+      return deps.publicSettings()
+    },
+    'mcp:copySetupCommand': async () => {
+      clipboard.writeText(await deps.mcp.setupCommand())
+    },
+    'ui:reportRoute': (route) => deps.setRoute(route),
   }
 
   for (const channel of Object.keys(ipcContract) as IpcChannel[]) {
