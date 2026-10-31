@@ -11,6 +11,9 @@ Written 2026-10-31 at the end of the first (cloud) session. Read this first in t
 
 ## First steps in the PC session
 
+Work in `C:\Users\CNC\Downloads\Ideal Course Studio` (Ash's choice). Anything Ash keeps there that isn't part of the project goes in `_downloads\`, which git ignores locally.
+
+
 1. Check the environment (step 1 of `KICKOFF-PROMPT.md`): Node 22+, pnpm, Git, uv, Python, `nvidia-smi`, free disk.
 2. `pnpm install`, `cd python; uv sync; cd ..`, then run every check from CLAUDE.md → Commands.
 3. `pnpm dev`, turn on Settings → Claude Code connection, copy the setup command, run it, restart Claude Code, and confirm `get_app_state` works.
