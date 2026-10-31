@@ -58,8 +58,8 @@ pnpm dev                # run the app with hot reload
 pnpm test               # vitest
 pnpm test:e2e           # Playwright Electron tests
 pnpm lint; pnpm typecheck
-cd python; uv sync; uv run pytest
+cd python; uv sync; cd ..; pnpm test:py   # pytest
 pnpm build:win          # NSIS installer in dist/
 ```
 
-(Create these scripts in M0 if they don't exist yet.)
+Env switches for testing (`CS_FORCE_CPU`, `CS_PYTHON`, `CS_STUCK_MS`, `CS_USER_DATA_DIR`) are listed in `README.md`.

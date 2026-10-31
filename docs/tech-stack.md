@@ -22,6 +22,19 @@ Picks from the research of Oct 31, 2026 (full write-up: "Course Studio · Tech s
 | Git | [dugite](https://github.com/desktop/dugite) | MIT | Bundled Git |
 | Chat (B4) | Claude Agent SDK in `utilityProcess` | Anthropic terms | `asarUnpack` the native binary |
 
+### Added in M0 (pinned in `package.json`)
+
+| Need | Pick | License | Notes |
+| --- | --- | --- | --- |
+| Electron helpers | @electron-toolkit/utils 4.0.0 | MIT | `is.dev` |
+| Claude client | @anthropic-ai/sdk 1.3.0 | Apache-2.0 | Main process only |
+| shadcn/ui building blocks | @radix-ui/react-slot, class-variance-authority, clsx, tailwind-merge, tw-animate-css | MIT / Apache-2.0 | What `shadcn add` generates against |
+| Fonts | @fontsource-variable/instrument-sans, @fontsource-variable/jetbrains-mono | OFL-1.1 | Bundled locally (offline) |
+| Lint and format | ESLint 10, typescript-eslint 8, eslint-plugin-react-hooks, eslint-plugin-react-refresh, Prettier 3 | MIT | |
+| Tests | vitest 5, Playwright 1.64 (`_electron`), jsdom, @testing-library/react | MIT / Apache-2.0 | |
+| TypeScript | typescript 6.0.3 | Apache-2.0 | Not 7.0 yet (typescript-eslint support) |
+| Python tests and build | pytest 9, hatchling | MIT | Dev only |
+
 ## Python and PDF
 
 | Need | Pick | License | Notes |
