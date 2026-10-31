@@ -1,0 +1,221 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '@fontsource-variable/instrument-sans';
+@import '@fontsource-variable/jetbrains-mono';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens (docs/ui-guidelines.md). Change values here, not in components.
+ */
+:root {
+  --canvas: #f4f5f7;
+  --surface: #ffffff;
+  --surface-2: #f9fafb;
+  --chrome: #eceef2;
+  --ink: #15181e;
+  --muted: #5a6170;
+  --faint: #8a91a0;
+  --line: #dde1e7;
+  --line-soft: #edeff3;
+  --control-line: #c9cfd8;
+  --accent: #2450c8;
+  --accent-hover: #1d42aa;
+  --accent-ink: #1a3c9a;
+  --accent-soft: #e8eefc;
+  --success: #1a6a3d;
+  --success-dot: #1e7a46;
+  --success-soft: #e6f3ec;
+  --stuck: #c25a00;
+  --stuck-ink: #8a4308;
+  --stuck-soft: #fdf1e4;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --shadow-pop: 0 12px 32px rgb(21 24 30 / 0.14), 0 2px 6px rgb(21 24 30 / 0.06);
+  --shadow-card: 0 1px 2px rgb(21 24 30 / 0.04);
+  --radius-control: 8px;
+  --radius-card: 12px;
+}
+
+.dark {
+  --canvas: #121418;
+  --surface: #1a1d23;
+  --surface-2: #1f232a;
+  --chrome: #0e1013;
+  --ink: #e6e8ec;
+  --muted: #9aa1ae;
+  --faint: #6c7381;
+  --line: #2a2f38;
+  --line-soft: #232730;
+  --control-line: #363c47;
+  --accent: #5b82f0;
+  --accent-hover: #7194f3;
+  --accent-ink: #a9bff8;
+  --accent-soft: #1e2a4a;
+  --success: #6fcf97;
+  --success-dot: #3fb871;
+  --success-soft: #16301f;
+  --stuck: #f08c2e;
+  --stuck-ink: #f6b26b;
+  --stuck-soft: #3a2511;
+  --danger: #f97066;
+  --danger-soft: #3b1a17;
+  --shadow-pop: 0 16px 40px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.3);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.2);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-chrome: var(--chrome);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-control-line: var(--control-line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-success-dot: var(--success-dot);
+  --color-success-soft: var(--success-soft);
+  --color-stuck: var(--stuck);
+  --color-stuck-ink: var(--stuck-ink);
+  --color-stuck-soft: var(--stuck-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --radius-control: var(--radius-control);
+  --radius-card: var(--radius-card);
+  --shadow-pop: var(--shadow-pop);
+  --shadow-card: var(--shadow-card);
+  --font-sans: 'Instrument Sans Variable', 'Segoe UI Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'Cascadia Mono', ui-monospace, monospace;
+
+  --animate-pulse-dot: pulse-dot 1.6s ease-in-out infinite;
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent);
+    }
+    50% {
+      box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 0%, transparent);
+    }
+  }
+  --animate-shimmer: shimmer 1.4s linear infinite;
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink);
+    background: var(--chrome);
+    -webkit-font-smoothing: antialiased;
+    /* Desktop app: no text selection or I-beam on chrome; inputs and .selectable opt back in. */
+    user-select: none;
+    cursor: default;
+    overflow: hidden;
+  }
+  /* With Mica the window paints the backdrop; keep chrome transparent so it shows through. */
+  html.mica body {
+    background: transparent;
+  }
+  input,
+  textarea,
+  .selectable {
+    user-select: text;
+  }
+  button,
+  a {
+    cursor: default;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+
+  /* Thin custom scrollbars. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--muted) 35%, transparent);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--muted) 60%, transparent);
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+@layer utilities {
+  .drag {
+    -webkit-app-region: drag;
+  }
+  .no-drag {
+    -webkit-app-region: no-drag;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
